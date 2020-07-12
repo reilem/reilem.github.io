@@ -1,0 +1,169 @@
+body {
+    --primary-color: #242424;
+    --secondary-color: #BFBFBF;
+    --dark-grey: #5C5C5C;
+    --grey: #8F8F8F;
+    --light-grey: #DEDEDE;
+    --primary-font-color: #fcfcfc;
+    --secondary-font-color: var(--primary-color);
+    background-color: var(--primary-color);
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: Ubuntu-Light;
+    src: url("fonts/Ubuntu/Ubuntu-Light.ttf")
+}
+
+@font-face {
+    font-family: Ubuntu-LightItalic;
+    src: url("fonts/Ubuntu/Ubuntu-LightItalic.ttf")
+}
+
+@font-face {
+    font-family: Ubuntu;
+    src: url("fonts/Ubuntu/Ubuntu-Regular.ttf");
+}
+
+@font-face {
+    font-family: Gudea;
+    src: url("fonts/Gudea/Gudea-Regular.ttf");
+}
+
+@font-face {
+    font-family: Alef;
+    src: url("fonts/Alef/Alef-Regular.ttf");
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    color: var(--primary-font-color);
+    font-family: Ubuntu-LightItalic;
+    font-size: 2em;
+    margin: 1em 0em 1em 2em;
+}
+
+h2 {
+    font-family: Alef;
+    color: var(--primary-font-color);
+    text-align: center;
+    margin: 0em 0em;
+    font-size: 18pt;
+}
+
+h3 {
+    font-family: Gudea;
+    color: var(--primary-font-color);
+    text-align: center;
+}
+
+.header .buttons {
+    display: flex;
+    padding: 1em 2em;
+    justify-content: center;
+}
+
+.right-box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+}
+
+.right-box-container .right-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: var(--secondary-color);
+    padding: 2em;
+    border-radius: 10px;
+}
+
+.right-box-container .right-box .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+p.hi {
+    font-size: 24pt;
+    margin: 0;
+}
+
+p.name {
+    font-size: 32pt;
+}
+
+p.description {
+    font-size: 18pt;
+}
+
+p {
+    font-family: Ubuntu;
+    color: var(--primary-color);
+    font-size: 16pt;
+}
+
+.mid-line {
+    display: block;
+    margin: 3em auto;
+    height: 1px;
+    width: 50px;
+    background-color: var(--primary-font-color);
+}
+
+.exp-table {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1em;
+}
+
+.exp-table .row {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.exp-table .row .item .contents {
+    background-color: var(--secondary-color);
+    padding: 0em 1em;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.button {
+    margin-left: 1em;
+    display: inline-block;
+    background-color: transparent;
+    color: var(--primary-font-color);
+    font-family: Ubuntu-Light;
+    font-size: 1.5em;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+button:hover, button:focus {
+    opacity: 0.70;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    transform: scale(0.95);
+}
