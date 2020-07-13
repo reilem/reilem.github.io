@@ -65,17 +65,13 @@ p {
     font-size: 1.5rem;
 }
 
-p.hi {
+p.medium {
     font-size: 2.5rem;
     margin: 0;
 }
 
-p.name {
+p.big {
     font-size: 3.5rem;
-}
-
-p.description {
-    font-size: 1.5rem;
 }
 
 p.miniquote {
