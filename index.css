@@ -57,7 +57,8 @@ h2 {
     font-family: Alef;
     color: var(--primary-font-color);
     text-align: center;
-    margin: 0em 0em;
+    padding: 1em 0em;
+    margin: 0;
     font-size: 18pt;
 }
 
@@ -121,10 +122,14 @@ p {
 
 .mid-line {
     display: block;
-    margin: 0em auto 3em auto;
+    margin: 0 auto 0 auto;
     height: 1px;
     width: 50px;
     background-color: var(--primary-font-color);
+}
+
+.exp-container {
+    height: 100%;
 }
 
 .exp-table {
