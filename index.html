@@ -6,11 +6,11 @@
     </head>
     <body>
         <div class="header">
-            <button class="button"><h1>reinert.dev</h1></button>
+            <button class="button" onclick="goToIndex()"><h1>reinert.dev</h1></button>
             <div class="buttons">
-                <button class="button left-space"><i class="fa fa-linkedin"></i></button>
-                <button class="button left-space"><i class="fa fa-github"></i></button>
-                <button class="button left-space">contact</button>
+                <button class="button left-space" onclick="openLinkedIn()"><i class="fa fa-linkedin fa-3x"></i></button>
+                <button class="button left-space" onclick="openGithub()"><i class="fa fa-github fa-3x"></i></button>
+                <button class="button left-space header-btn" onclick="goToContact()">contact</button>
             </div>
         </div>
         <div class="box-container">
@@ -19,7 +19,7 @@
                 <p class="name">I am Reinert Lemmens.</p>
                 <p class="description">A full-stack software engineer based in Leuven, Belgium.</p>
             </div>
-            <!-- TODO: some floating csv mesh network from right to left -->
+            <!-- TODO: some floating svg mesh network from right to left -->
         </div>
         <div class="footer">
             <img src="svgs/bottom-left-angle.svg" width="50" height="50" color>
@@ -31,8 +31,6 @@
             <h2>Technical Experience</h2>
             <p class="miniquote">Including, but not limited to...</p>
             <div class="exp-table">
-                <!-- TODO: replace logos with svgs -->
-                <!-- TODO: align titles and boxes to unfiform size -->
                 <div>
                     <h3>Mobile</h3>
                     <div class="boxed-contents">
