@@ -7,11 +7,11 @@ function scrollToSecond () {
 }
 
 function goToIndex () {
-    window.location = "index.html"
+    window.location = ""
 }
 
 function goToContact () {
-    window.location = "contact.html"
+    window.location = "contact"
 }
 
 function openLinkedIn () {
