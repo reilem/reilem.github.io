@@ -7,7 +7,7 @@ function scrollToSecond () {
 }
 
 function goToIndex () {
-    window.location = ""
+    window.location = "/"
 }
 
 function goToContact () {
