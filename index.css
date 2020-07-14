@@ -38,8 +38,9 @@ body {
 
 h1 {
     color: var(--primary-font-color);
-    font-family: Ubuntu;
+    font-family: Ubuntu-Light;
     font-size: 2.5rem;
+    font-weight: normal;
 }
 
 h2 {
