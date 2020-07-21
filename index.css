@@ -45,6 +45,7 @@ h1 {
 
 h2 {
     font-family: Alef;
+    font-weight: normal;
     color: var(--primary-font-color);
     text-align: center;
     padding: 4rem 0 2rem 0; /*Use padding so as not to mess up the 100% height of parent*/
