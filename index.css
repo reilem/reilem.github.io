@@ -89,7 +89,7 @@ p.miniquote {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0 2rem 0 2rem;
+    padding-left: 2rem;
     align-items: center;
 }
 
@@ -97,6 +97,7 @@ p.miniquote {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-right: 2rem;
 }
 
 .header-btn {
