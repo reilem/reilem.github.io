@@ -100,6 +100,10 @@ p.miniquote {
     padding-right: 2rem;
 }
 
+.header .title {
+    margin-right: 3rem;
+}
+
 .header-btn {
     font-size: 2rem
 }
