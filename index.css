@@ -207,16 +207,16 @@ p.miniquote {
     -moz-appearance: none;
 }
 
-button:hover {
+.button:hover {
     opacity: 0.70;
 }
 
-button:focus {
+.button:focus {
     outline: none;
     box-shadow: none;
 }
 
-button:active {
+.button:active {
     transform: scale(0.95);
 }
 
