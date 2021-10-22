@@ -92,7 +92,7 @@ p.miniquote {
     word-break: break-word;
 }
 
-.first-screen {
+.full-screen {
     display: flex;
     flex-direction: column;
     height: 100vh;
