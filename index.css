@@ -39,6 +39,12 @@ body {
     src: url("fonts/Alef/Alef-Regular.ttf");
 }
 
+.full-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
 h1 {
     color: var(--primary-font-color);
     font-family: Ubuntu-Light;
@@ -84,6 +90,10 @@ p.big {
     word-break: normal;
 }
 
+p.email {
+    font-size: 3rem;
+}
+
 p.miniquote {
     font-family: Ubuntu-LightItalic;
     font-size: 1rem;
@@ -92,10 +102,9 @@ p.miniquote {
     word-break: break-word;
 }
 
-.full-screen {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+.email-link {
+    -webkit-text-decoration-color: var(--primary-font-color);
+    text-decoration-color: var(--primary-font-color);
 }
 
 .header {
@@ -286,6 +295,17 @@ p.miniquote {
     p.big {
         font-size: 3rem;
     }
+    p.email {
+        font-size: 2rem;
+    }
+    .footer .footer-corner {
+        width: 37.5px;
+        height: 37.5px;
+    }
+    .footer .footer-button {
+        width: 37.5px;
+        height: 18.75px;
+    }
     .img-container {
         margin: 0.75rem 0.75rem;
     }
@@ -330,6 +350,9 @@ p.miniquote {
     }
     p.big {
         font-size: 2.5rem;
+    }
+    p.email {
+        font-size: 1rem;
     }
     .footer .footer-corner {
         width: 25px;
