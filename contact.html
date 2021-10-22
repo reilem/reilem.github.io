@@ -2,28 +2,32 @@
     <head>
         <link rel="stylesheet" href="index.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="index.js"></script>
     </head>
     <body>
-        <div class="header">
-            <button class="button" onclick="goToIndex()"><h1>reinert.dev</h1></button>
-            <div class="buttons">
-                <button class="button left-space" onclick="openLinkedIn()"><i class="fa fa-linkedin fa-3x"></i></button>
-                <button class="button left-space" onclick="openGithub()"><i class="fa fa-github fa-3x"></i></button>
-                <button class="button left-space header-btn" onclick="goToContact()">contact</button>
+        <div class="full-screen">
+            <div class="header">
+                <a class="button title" href="index.html"><h1>reinert.dev</h1></a>
+                <div class="buttons">
+                    <a class="button" target="_blank" href="https://www.linkedin.com/in/reinert-lemmens/"><i class="fa fa-linkedin icon-btn"></i></a>
+                    <a class="button left-space" target="_blank" href="https://github.com/reilem"><i class="fa fa-github icon-btn"></i></a>
+                    <a class="button left-space text-btn" href="contact.html">contact</a>
+                </div>
+            </div>
+            <div class="center-text-container">
+                <div class="center-text">
+                    <p>Interested in hiring me?</p>
+                    <p>Just want to chat?</p>
+                    <p>Drop me a line at</p>
+                    <a class="email-link" href="mailto: info@reinert.dev"><p class="email">info@reinert.dev</p></a>
+                </div>
             </div>
         </div>
-        <div class="box-container">
-            <div class="box">
-                <p>Interested in hiring me?</p>
-                <p>Just want to chat?</p>
-                <p>Drop me a line at</p>
-                <p class="big">info@reinert.dev</p>
-            </div>
-        </div>
+
         <div class="footer">
-            <img src="svgs/bottom-left-angle.svg" width="50" height="50" color>
-            <img src="svgs/bottom-right-angle.svg" width="50" height="50" color>
+            <img src="svgs/bottom-left-angle.svg" class="footer-corner" color>
+            <img src="svgs/bottom-right-angle.svg" class="footer-corner" color>
         </div>
     </body>
 </html>
