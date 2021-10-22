@@ -55,6 +55,7 @@ h2 {
     padding: 4rem 0 2rem 0; /*Use padding so as not to mess up the 100% height of parent*/
     margin: 0;
     font-size: 2rem;
+    word-break: break-word;
 }
 
 h3 {
@@ -62,21 +63,25 @@ h3 {
     color: var(--primary-font-color);
     text-align: center;
     font-size: 1.5rem;
+    word-break: break-word;
 }
 
 p {
     font-family: Ubuntu;
     color: var(--primary-font-color);
     font-size: 1.5rem;
+    word-break: break-word;
 }
 
 p.medium {
     font-size: 2.5rem;
     margin: 0;
+    word-break: break-word;
 }
 
 p.big {
     font-size: 3.5rem;
+    word-break: normal;
 }
 
 p.miniquote {
@@ -84,6 +89,13 @@ p.miniquote {
     font-size: 1rem;
     text-align: center;
     margin: 1rem 0 2rem 0;
+    word-break: break-word;
+}
+
+.first-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .header {
@@ -95,6 +107,10 @@ p.miniquote {
     overflow-x: visible;
 }
 
+.header .title {
+    margin-right: 1rem;
+}
+
 .header .buttons {
     display: flex;
     justify-content: center;
@@ -103,33 +119,28 @@ p.miniquote {
     padding-right: 1rem;
 }
 
-.header .icon-button {
+.header .icon-btn {
     font-size: 2rem;
 }
 
-.header .title {
-    margin-right: 1rem;
-}
-
-.header-btn {
+.header .text-btn {
     font-size: 2rem
 }
 
-.box-container {
+.center-text-container {
     display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     overflow: hidden;
-    height: 100%;
 }
 
-.box-container .box {
+.center-text-container .center-text {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: 0 3rem;
 }
 
 .footer {
@@ -138,9 +149,19 @@ p.miniquote {
     justify-content: space-between;
     align-items: flex-end;
     position: absolute;
-    bottom: 2rem;
-    left: 2rem;
-    right: 2rem;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+}
+
+.footer .footer-corner {
+    width: 50px;
+    height: 50px;
+}
+
+.footer .footer-button {
+    width: 50px;
+    height: 25px;
 }
 
 .mid-line {
@@ -163,13 +184,7 @@ p.miniquote {
     padding: 0 1rem;
 }
 
-@media (min-width: 700px) {
-    .exp-table {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-.boxed-contents {
+.exp-box {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -188,6 +203,11 @@ p.miniquote {
     justify-content: flex-end;
 }
 
+.img-container .logo {
+    width: 100px;
+    height: 100px;
+}
+
 .img-container .logo-white {
     background-color: var(--light-grey);
     border-color: var(--light-grey);
@@ -200,6 +220,7 @@ p.miniquote {
 .img-container p.img-caption {
     margin: 0.5rem 0 0 0;
     font-size: 1.5rem;
+    word-break: break-word;
 }
 
 .languages-container {
@@ -237,18 +258,37 @@ p.miniquote {
     margin-left: 2rem;
 }
 
+@media (min-width: 700px) {
+    .exp-table {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 @media screen and (max-width : 450px) {
     h1 {
         font-size: 1.5rem;
     }
-    .header-btn {
+    .header .text-btn {
         font-size: 1.5rem
     }
-    .header .icon-button {
+    .header .icon-btn {
         font-size: 1.5rem;
     }
     .left-space {
         margin-left: 1.5rem;
+    }
+    p.big {
+        font-size: 3rem;
+    }
+    .img-container {
+        margin: 0.75rem 0.75rem;
+    }
+    .img-container .logo {
+        width: 75px;
+        height: 75px;
+    }
+    .img-container p.img-caption {
+        font-size: 1rem;
     }
 }
 
@@ -256,13 +296,37 @@ p.miniquote {
     h1 {
         font-size: 1rem;
     }
-    .header-btn {
+    .header .text-btn {
         font-size: 1rem
     }
-    .header .icon-button {
+    .header .icon-btn {
         font-size: 1rem;
     }
     .left-space {
         margin-left: 1rem;
+    }
+    p {
+        font-size: 1rem;
+    }
+    p.medium {
+        font-size: 2rem;
+    }
+    p.big {
+        font-size: 2.5rem;
+    }
+    .footer .footer-corner {
+        width: 25px;
+        height: 25px;
+    }
+    .footer .footer-button {
+        width: 25px;
+        height: 12.5px;
+    }
+    .img-container {
+        margin: 0.5rem 0.5rem;
+    }
+    .img-container .logo {
+        width: 50px;
+        height: 50px;
     }
 }

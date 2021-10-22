@@ -8,26 +8,28 @@
         <title>reinert.dev</title>
     </head>
     <body>
-        <div class="header">
-            <a class="button title" href="index.html"><h1>reinert.dev</h1></a>
-            <div class="buttons">
-                <a class="button" target="_blank" href="https://www.linkedin.com/in/reinert-lemmens/"><i class="fa fa-linkedin icon-button"></i></a>
-                <a class="button left-space" target="_blank" href="https://github.com/reilem"><i class="fa fa-github icon-button"></i></a>
-                <a class="button left-space header-btn" href="contact.html">contact</a>
+        <div class="first-screen">
+            <div class="header">
+                <a class="button title" href="index.html"><h1>reinert.dev</h1></a>
+                <div class="buttons">
+                    <a class="button" target="_blank" href="https://www.linkedin.com/in/reinert-lemmens/"><i class="fa fa-linkedin icon-btn"></i></a>
+                    <a class="button left-space" target="_blank" href="https://github.com/reilem"><i class="fa fa-github icon-btn"></i></a>
+                    <a class="button left-space text-btn" href="contact.html">contact</a>
+                </div>
             </div>
-        </div>
-        <div class="box-container">
-            <div class="box">
-                <p class="medium">Hi,</p>
-                <p class="big">I am Reinert Lemmens.</p>
-                <p>A full-stack software engineer based in Leuven, Belgium.</p>
+            <div class="center-text-container">
+                <div class="center-text">
+                    <p class="medium">Hi,</p>
+                    <p class="big">I am Reinert Lemmens.</p>
+                    <p>A full-stack software engineer based in Leuven, Belgium.</p>
+                </div>
+                <!-- TODO: some floating svg mesh network from right to left -->
             </div>
-            <!-- TODO: some floating svg mesh network from right to left -->
         </div>
         <div class="footer">
-            <img src="svgs/bottom-left-angle.svg" width="50" height="50" color>
-            <button class="button" onclick="scrollToSecond()"><img src="svgs/bottom-mid-arrow.svg" width="50" height="25" color></button>
-            <img src="svgs/bottom-right-angle.svg" width="50" height="50" color>
+            <img src="svgs/bottom-left-angle.svg" class="footer-corner" color>
+            <button class="button" onclick="scrollToSecond()"><img src="svgs/bottom-mid-arrow.svg" class="footer-button" color></button>
+            <img src="svgs/bottom-right-angle.svg" class="footer-corner" color>
         </div>
         <div class="mid-line"></div>
         <div class="exp-container">
@@ -36,76 +38,76 @@
             <div class="exp-table">
                 <div>
                     <h3>Mobile</h3>
-                    <div class="boxed-contents">
+                    <div class="exp-box">
                         <div class="img-container">
-                            <img class="logo" src="svgs/flutter.svg" width="100" height="100">
+                            <img class="logo" src="svgs/flutter.svg">
                             <p class="img-caption">Flutter</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/react.svg" width="100" height="100">
+                            <img class="logo" src="svgs/react.svg">
                             <p class="img-caption">React-Native</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/android.svg" width="100" height="100">
+                            <img class="logo" src="svgs/android.svg">
                             <p class="img-caption">Native Android</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/ios.svg" width="100" height="100">
+                            <img class="logo" src="svgs/ios.svg">
                             <p class="img-caption">Native iOS</p>
                         </div>
                     </div>
                 </div>
                 <div>
                     <h3>Web</h3>
-                    <div class="boxed-contents">
+                    <div class="exp-box">
                         <div class="img-container">
-                            <img class="logo" src="svgs/react.svg" width="100" height="100">
+                            <img class="logo" src="svgs/react.svg">
                             <p class="img-caption">React</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/html.svg" width="100" height="100">
+                            <img class="logo" src="svgs/html.svg">
                             <p class="img-caption">HTML</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/css.svg" width="100" height="100">
+                            <img class="logo" src="svgs/css.svg">
                             <p class="img-caption">CSS</p>
                         </div>
                     </div>
                 </div>
                 <div>
                     <h3>Deployment</h3>
-                    <div class="boxed-contents">
+                    <div class="exp-box">
                         <div class="img-container">
-                            <img class="logo" src="svgs/kubernetes.svg" width="100" height="100">
+                            <img class="logo" src="svgs/kubernetes.svg">
                             <p class="img-caption">Kubernetes</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/gke.svg" width="100" height="100">
+                            <img class="logo" src="svgs/gke.svg">
                             <p class="img-caption">GKE</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/docker.svg" width="100" height="100">
+                            <img class="logo" src="svgs/docker.svg">
                             <p class="img-caption">Docker</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/azure.svg" width="100" height="100">
+                            <img class="logo" src="svgs/azure.svg">
                             <p class="img-caption">Azure</p>
                         </div>
                     </div>
                 </div>
                 <div>
                     <h3>Backend</h3>
-                    <div class="boxed-contents">
+                    <div class="exp-box">
                         <div class="img-container">
-                            <img class="logo logo-white" src="svgs/nodejs.svg" width="100" height="100">
+                            <img class="logo logo-white" src="svgs/nodejs.svg">
                             <p class="img-caption">Node.js & Express</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/postgresql.svg" width="100" height="100">
+                            <img class="logo" src="svgs/postgresql.svg">
                             <p class="img-caption">PostgreSQL</p>
                         </div>
                         <div class="img-container">
-                            <img class="logo" src="svgs/mysql.svg" width="100" height="100">
+                            <img class="logo" src="svgs/mysql.svg">
                             <p class="img-caption">MySQL</p>
                         </div>
                     </div>
@@ -113,41 +115,41 @@
             </div>
             <div class="languages-container">
                 <h3>Languages</h3>
-                <div class="boxed-contents">
+                <div class="exp-box">
                     <div class="img-container">
-                        <img class="logo" src="svgs/typescript.svg" width="100" height="100">
+                        <img class="logo" src="svgs/typescript.svg">
                         <p class="img-caption">TypeScript</p>
                     </div>
                     <div class="img-container">
-                        <img class="logo" src="svgs/dart.svg" width="100" height="100">
+                        <img class="logo" src="svgs/dart.svg">
                         <p class="img-caption">Dart</p>
                     </div>
                     <div class="img-container">
-                        <img class="logo" src="svgs/kotlin.svg" width="100" height="100">
+                        <img class="logo" src="svgs/kotlin.svg">
                         <p class="img-caption">Kotlin</p>
                     </div>
                     <div class="img-container">
-                        <img class="logo" src="svgs/swift.svg" width="100" height="100">
+                        <img class="logo" src="svgs/swift.svg">
                         <p class="img-caption">Swift</p>
                     </div>
                     <div class="img-container">
-                        <img class="logo" src="svgs/java.svg" width="100" height="100">
+                        <img class="logo" src="svgs/java.svg">
                         <p class="img-caption">Java</p>
                     </div>
                     <div class="img-container">
-                        <img class="logo" src="svgs/objectivec.svg" width="100" height="100">
+                        <img class="logo" src="svgs/objectivec.svg">
                         <p class="img-caption">Objective-C</p>
                     </div>
                     <div class="img-container">
-                        <img class="logo" src="svgs/haskell.svg" width="100" height="100">
+                        <img class="logo" src="svgs/haskell.svg">
                         <p class="img-caption">Haskell</p>
                     </div>
                     <div class="img-container">
-                        <img class="logo" src="svgs/scala.svg" width="100" height="100">
+                        <img class="logo" src="svgs/scala.svg">
                         <p class="img-caption">Scala</p>
                     </div>
                     <div class="img-container">
-                        <img class="logo" src="svgs/ocaml.svg" width="100" height="100">
+                        <img class="logo" src="svgs/ocaml.svg">
                         <p class="img-caption">Ocaml</p>
                     </div>
                 </div>
