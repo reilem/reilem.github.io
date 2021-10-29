@@ -181,10 +181,6 @@ p.miniquote {
     background-color: var(--primary-font-color);
 }
 
-.exp-container {
-    height: 100%;
-}
-
 .exp-table {
     display: grid;
     grid-gap: 1rem;
@@ -235,6 +231,7 @@ p.miniquote {
 .languages-container {
     max-width: 80rem;
     margin: 2rem auto;
+    padding: 0 1rem;
 }
 
 .button {
