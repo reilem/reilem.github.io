@@ -45,6 +45,10 @@ body {
     height: 100vh;
 }
 
+.second-screen {
+    align-items: center;
+}
+
 h1 {
     color: var(--primary-font-color);
     font-family: Ubuntu-Light;
@@ -184,8 +188,7 @@ p.miniquote {
 .exp-table {
     display: grid;
     grid-gap: 1rem;
-    margin: 0 auto;
-    max-width: 80rem;
+    max-width: 79.1rem;
     padding: 0 1rem;
 }
 
@@ -213,6 +216,11 @@ p.miniquote {
     height: 100px;
 }
 
+.img-container .small-logo {
+    width: 100px;
+    height: 75px;
+}
+
 .img-container .logo-white {
     background-color: var(--light-grey);
     border-color: var(--light-grey);
@@ -229,9 +237,10 @@ p.miniquote {
 }
 
 .languages-container {
-    max-width: 80rem;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 79.1rem;
+    padding: 0 1rem 1rem 1rem;
 }
 
 .button {
