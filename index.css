@@ -236,6 +236,14 @@ p.miniquote {
     word-break: break-word;
 }
 
+.tool-img-container {
+    margin: 1rem 2rem;
+}
+
+.language-img-container {
+    margin: 1rem 2.5rem;
+}
+
 .languages-container {
     display: flex;
     flex-direction: column;
