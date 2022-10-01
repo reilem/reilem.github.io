@@ -2,7 +2,6 @@
  * TODO:
  * - Complete the mesh network, ideas:
  *   - Passive random line glowing
- *   - Passive point wandering
  *   - Mouse over glow
  *   - Mouse over move, points try to move away from mouse for a certain max distance
  *   - Some animation on scroll?
@@ -53,13 +52,13 @@ function makeArray(size) {
 }
 
 /**
+ * @param {() => number} random
  * @returns {{x: number, y: number}[]}
  */
-function generateMeshPoints() {
-    const myrng = new Math.seedrandom(SEED);
+function generateMeshPoints(random) {
     const width = window.innerWidth - HORIZONTAL_MESH_MARGIN * 2;
     const height = window.innerHeight - VERTICAL_MESH_MARGIN * 2;
-    const points = generatePoints(myrng, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, POINT_COUNT);
+    const points = generatePoints(random, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, POINT_COUNT);
     return removePointsTooCloseTogether(points);
 }
 
@@ -113,6 +112,7 @@ function pointsToArray(points) {
  * @param {{ triangles: number[], hull: number[] }} delaunay
  */
 function drawTriangles(ctx, points, delaunay) {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     const triangleCount = delaunay.triangles.length / 3;
     for (let i = 0; i < triangleCount; i++) {
         drawTriangle(ctx, points, delaunay, i);
@@ -174,14 +174,26 @@ function drawLine(ctx, { x: x0, y: y0 }, { x: x1, y: y1 }) {
     ctx.stroke();
 }
 
-function draw() {
-    if (window.innerWidth < 650) {
-        return;
-    }
-    const ctx = initialiseCanvas();
-    const points = generateMeshPoints();
-    const delaunay = new Delaunator(pointsToArray(points));
+/**
+ *
+ * @param {CanvasRenderingContext2D} ctx
+ * @param {{x: number, y: number}[]} points
+ * @param {{ triangles: number[], hull: number[] }} delaunay
+ * @param {() => number} random
+ */
+function updateMesh(ctx, points, delaunay, random) {
     drawTriangles(ctx, points, delaunay);
+    requestAnimationFrame(() => {
+        updateMesh(ctx, points, delaunay, random);
+    });
 }
 
-window.onload = draw;
+function startMesh() {
+    const random = new Math.seedrandom(SEED);
+    const ctx = initialiseCanvas();
+    const points = generateMeshPoints(random);
+    const delaunay = new Delaunator(pointsToArray(points));
+    updateMesh(ctx, points, delaunay, random);
+}
+
+window.onload = startMesh;
