@@ -1,9 +1,9 @@
 body {
     --primary-color: #242424;
-    --secondary-color: #BFBFBF;
-    --dark-grey: #5C5C5C;
-    --grey: #8F8F8F;
-    --light-grey: #DEDEDE;
+    --secondary-color: #bfbfbf;
+    --dark-grey: #5c5c5c;
+    --grey: #8f8f8f;
+    --light-grey: #dedede;
     --primary-font-color: #fcfcfc;
     --secondary-font-color: var(--primary-color);
     background-color: var(--primary-color);
@@ -16,27 +16,27 @@ body {
 
 @font-face {
     font-family: Ubuntu-Light;
-    src: url("fonts/Ubuntu/Ubuntu-Light.ttf")
+    src: url('fonts/Ubuntu/Ubuntu-Light.ttf');
 }
 
 @font-face {
     font-family: Ubuntu-LightItalic;
-    src: url("fonts/Ubuntu/Ubuntu-LightItalic.ttf")
+    src: url('fonts/Ubuntu/Ubuntu-LightItalic.ttf');
 }
 
 @font-face {
     font-family: Ubuntu;
-    src: url("fonts/Ubuntu/Ubuntu-Regular.ttf");
+    src: url('fonts/Ubuntu/Ubuntu-Regular.ttf');
 }
 
 @font-face {
     font-family: Gudea;
-    src: url("fonts/Gudea/Gudea-Regular.ttf");
+    src: url('fonts/Gudea/Gudea-Regular.ttf');
 }
 
 @font-face {
     font-family: Alef;
-    src: url("fonts/Alef/Alef-Regular.ttf");
+    src: url('fonts/Alef/Alef-Regular.ttf');
 }
 
 .full-screen {
@@ -47,6 +47,17 @@ body {
 
 .second-screen {
     align-items: center;
+}
+
+.canvas {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
 }
 
 h1 {
@@ -137,7 +148,7 @@ p.miniquote {
 }
 
 .header .text-btn {
-    font-size: 2rem
+    font-size: 2rem;
 }
 
 .center-text-container {
@@ -265,7 +276,7 @@ p.miniquote {
 }
 
 .button:hover {
-    opacity: 0.70;
+    opacity: 0.7;
 }
 
 .button:focus {
@@ -287,7 +298,7 @@ p.miniquote {
     }
 }
 
-@media screen and (max-width : 470px) {
+@media screen and (max-width: 470px) {
     h1 {
         font-size: 1.5rem;
     }
@@ -298,7 +309,7 @@ p.miniquote {
         padding-right: 1.5rem;
     }
     .header .text-btn {
-        font-size: 1.5rem
+        font-size: 1.5rem;
     }
     .header .icon-btn {
         font-size: 1.5rem;
@@ -337,7 +348,7 @@ p.miniquote {
     }
 }
 
-@media screen and (max-width : 360px) {
+@media screen and (max-width: 360px) {
     h1 {
         font-size: 1rem;
     }
@@ -348,7 +359,7 @@ p.miniquote {
         padding-right: 1rem;
     }
     .header .text-btn {
-        font-size: 1rem
+        font-size: 1rem;
     }
     .header .icon-btn {
         font-size: 1rem;
