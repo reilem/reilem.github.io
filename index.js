@@ -1,14 +1,20 @@
 /**
  * TODO:
- * - Complete the mesh network
+ * - Complete the mesh network, ideas:
+ *   - Passive random line glowing
+ *   - Passive point wandering
+ *   - Mouse over glow
+ *   - Mouse over move, points try to move away from mouse for a certain max distance
+ *   - Some animation on scroll?
  * - Make code/tool icons clickable
  * - CSS animations of things appearing as you scroll down
  * - More content, timeline, etc.
  */
 const POINT_COUNT = 200;
 const LINE_COLOR = '#464646';
-const MESH_MARGIN = 100;
-const SEED = '223357780';
+const VERTICAL_MESH_MARGIN = 100;
+const HORIZONTAL_MESH_MARGIN = 40;
+const SEED = '223347780';
 const MIN_TRIANGLE_SIZE = 30;
 
 function scrollToSecond() {
@@ -51,8 +57,9 @@ function makeArray(size) {
  */
 function generateMeshPoints() {
     const myrng = new Math.seedrandom(SEED);
-    const margin = MESH_MARGIN;
-    const points = generatePoints(myrng, margin, margin, window.innerWidth - margin * 2, window.innerHeight - margin * 2, POINT_COUNT);
+    const width = window.innerWidth - HORIZONTAL_MESH_MARGIN * 2;
+    const height = window.innerHeight - VERTICAL_MESH_MARGIN * 2;
+    const points = generatePoints(myrng, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, POINT_COUNT);
     return removePointsTooCloseTogether(points);
 }
 
