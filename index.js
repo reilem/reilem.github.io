@@ -9,12 +9,15 @@
  * - CSS animations of things appearing as you scroll down
  * - More content, timeline, etc.
  */
-const POINT_COUNT = 200;
+const POINT_COUNT = 300; // TODO: dependent on window size?
 const LINE_COLOR = '#464646';
 const VERTICAL_MESH_MARGIN = 100;
 const HORIZONTAL_MESH_MARGIN = 40;
 const SEED = '223347780';
 const MIN_TRIANGLE_SIZE = 30;
+
+let previousMousePosition = null;
+const mousePosition = { x: 0, y: 0 };
 
 function scrollToSecond() {
     window.scroll({
@@ -167,11 +170,21 @@ function drawTriangle(ctx, points, delaunay, index) {
  */
 function drawLine(ctx, { x: x0, y: y0 }, { x: x1, y: y1 }) {
     ctx.strokeStyle = LINE_COLOR;
+    if (distance(mousePosition, { x: x0, y: y0 }) < 50) {
+        ctx.strokeStyle = '#fff';
+    }
     ctx.lineWidth = '1';
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
     ctx.stroke();
+}
+
+function isValidUpdate() {
+    return (
+        mousePosition.y < window.innerHeight &&
+        (previousMousePosition == null || mousePosition.x !== previousMousePosition.x || mousePosition.y !== previousMousePosition.y)
+    );
 }
 
 /**
@@ -182,7 +195,11 @@ function drawLine(ctx, { x: x0, y: y0 }, { x: x1, y: y1 }) {
  * @param {() => number} random
  */
 function updateMesh(ctx, points, delaunay, random) {
-    drawTriangles(ctx, points, delaunay);
+    if (isValidUpdate()) {
+        console.log('UPDATE', mousePosition);
+        drawTriangles(ctx, points, delaunay);
+        previousMousePosition = { ...mousePosition };
+    }
     requestAnimationFrame(() => {
         updateMesh(ctx, points, delaunay, random);
     });
@@ -196,4 +213,13 @@ function startMesh() {
     updateMesh(ctx, points, delaunay, random);
 }
 
+/**
+ * @param {MouseEvent} event
+ */
+function setMousePosition(event) {
+    mousePosition.x = event.pageX;
+    mousePosition.y = event.pageY;
+}
+
 window.onload = startMesh;
+window.onmousemove = setMousePosition;
