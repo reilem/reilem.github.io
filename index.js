@@ -19,14 +19,6 @@ let previousMousePosition = null;
 const mousePosition = { x: 0, y: 0 };
 
 /**
- * @param {MouseEvent} event
- */
-function setMousePosition(event) {
-    mousePosition.x = event.pageX;
-    mousePosition.y = event.pageY;
-}
-
-/**
  * Scrolls down one page
  */
 function scrollToSecondPage() {
@@ -35,6 +27,14 @@ function scrollToSecondPage() {
         left: 0,
         behavior: 'smooth',
     });
+}
+
+/**
+ * @param {MouseEvent} event
+ */
+function setMousePosition(event) {
+    mousePosition.x = event.pageX;
+    mousePosition.y = event.pageY;
 }
 
 /**
@@ -64,14 +64,13 @@ function generateMeshPoints(random) {
     const width = window.innerWidth - HORIZONTAL_MESH_MARGIN * 2;
     const height = window.innerHeight - VERTICAL_MESH_MARGIN * 2;
     const points = generatePoints(random, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, POINT_COUNT);
-    return removePointsTooCloseTogether(points);
+    return prunePoints(points, MIN_TRIANGLE_SIZE);
 }
 
 /**
- *
  * @param {{x: number, y: number}[]} points
  * @param {{ triangles: number[], hull: number[] }} delaunay
- * @returns {{p0: {x: number, y: number}, p1: {x: number, y: number}}[]}
+ * @returns {{p0: {x: number, y: number, index: number}, p1: {x: number, y: number, index: number}}[]}
  */
 function getLinesToDraw(points, delaunay) {
     const triangleCount = delaunay.triangles.length / 3;
@@ -101,30 +100,8 @@ function getLinesToDraw(points, delaunay) {
 }
 
 /**
- * @param {{x: number, y: number}[]} points
- * @returns {{x: number, y: number}[]}
- */
-function removePointsTooCloseTogether(points) {
-    const sortedPoints = [...points].sort((p1, p2) => p1.x - p2.x);
-    return sortedPoints.filter((point, index) => {
-        return !sortedPoints.slice(index + 1, index + 10).some(point2 => distance(point, point2) < MIN_TRIANGLE_SIZE);
-    });
-}
-
-/**
- * @param {() => number} random
- * @param {number} width
- * @param {number} height
- * @param {number} count
- * @returns {{x: number, y: number}[]}
- */
-function generatePoints(random, x, y, width, height, count) {
-    return makeArray(count).map(_ => ({ x: random() * width + x, y: random() * height + y }));
-}
-
-/**
  * @param {CanvasRenderingContext2D} ctx
- * @param {{p0: {x: number, y: number}, p1: {x: number, y: number}}[]} lines
+ * @param {{p0: {x: number, y: number, index: number}, p1: {x: number, y: number, index: number}}[]} lines
  */
 function drawLines(ctx, lines) {
     const { x, y } = mousePosition;
@@ -139,8 +116,8 @@ function drawLines(ctx, lines) {
 
 /**
  * @param {CanvasRenderingContext2D} ctx
- * @param {{x: number, y: number}} point1
- * @param {{x: number, y: number}} point2
+ * @param {{x: number, y: number}} p0
+ * @param {{x: number, y: number}} p1
  */
 function drawLine(ctx, p0, p1) {
     const { x: x0, y: y0 } = p0;
@@ -164,9 +141,7 @@ function isValidUpdate() {
 /**
  *
  * @param {CanvasRenderingContext2D} ctx
- * @param {{x: number, y: number}[]} points
- * @param {{ triangles: number[], hull: number[] }} delaunay
- * @param {() => number} random
+ * @param {{p0: {x: number, y: number, index: number}, p1: {x: number, y: number, index: number}}[]} lines
  */
 function updateMesh(ctx, lines) {
     if (isValidUpdate()) {
