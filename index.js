@@ -2,14 +2,12 @@
  * TODO:
  * - Complete the mesh network, ideas:
  *   - Passive random line glowing
- *   - Mouse over glow
  *   - Mouse over move, points try to move away from mouse for a certain max distance
- *   - Some animation on scroll?
  * - Make code/tool icons clickable
  * - CSS animations of things appearing as you scroll down
  * - More content, timeline, etc.
  */
-const POINT_COUNT = 300; // TODO: dependent on window size?
+const POINT_COUNT = window.innerWidth / 3;
 const HIGHLIGHT_COLOR = '#fff';
 const LINE_COLOR = '#565656';
 const VERTICAL_MESH_MARGIN = 100;
