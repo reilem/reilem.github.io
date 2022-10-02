@@ -10,7 +10,8 @@
  * - More content, timeline, etc.
  */
 const POINT_COUNT = 300; // TODO: dependent on window size?
-const LINE_COLOR = '#464646';
+const HIGHLIGHT_COLOR = '#fff';
+const LINE_COLOR = '#565656';
 const VERTICAL_MESH_MARGIN = 100;
 const HORIZONTAL_MESH_MARGIN = 40;
 const SEED = '223347780';
@@ -128,6 +129,12 @@ function generatePoints(random, x, y, width, height, count) {
  * @param {{p0: {x: number, y: number}, p1: {x: number, y: number}}[]} lines
  */
 function drawLines(ctx, lines) {
+    const { x, y } = mousePosition;
+    const grad = ctx.createRadialGradient(x, y, 50, x, y, 150);
+    grad.addColorStop(0, HIGHLIGHT_COLOR);
+    grad.addColorStop(1, LINE_COLOR);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 0.5;
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     lines.forEach(({ p0, p1 }) => drawLine(ctx, p0, p1));
 }
@@ -140,12 +147,6 @@ function drawLines(ctx, lines) {
 function drawLine(ctx, p0, p1) {
     const { x: x0, y: y0 } = p0;
     const { x: x1, y: y1 } = p1;
-    ctx.strokeStyle = LINE_COLOR;
-    const lineCenter = { x: (x0 + x1) / 2, y: (y0 + y1) / 2 };
-    if (distance(mousePosition, lineCenter) < 50 || distance(mousePosition, p0) < 50 || distance(mousePosition, p1) < 50) {
-        ctx.strokeStyle = '#fff';
-    }
-    ctx.lineWidth = '1';
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
@@ -171,7 +172,6 @@ function isValidUpdate() {
  */
 function updateMesh(ctx, lines) {
     if (isValidUpdate()) {
-        console.log('UPDATE', mousePosition);
         drawLines(ctx, lines);
         previousMousePosition = { ...mousePosition };
     }
