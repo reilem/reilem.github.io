@@ -16,6 +16,7 @@ const HORIZONTAL_MESH_MARGIN = 40;
 const SEED = '223347780';
 const MIN_TRIANGLE_SIZE = 30;
 
+const drawnLines = new Set();
 let previousMousePosition = null;
 const mousePosition = { x: 0, y: 0 };
 
@@ -116,6 +117,7 @@ function pointsToArray(points) {
  */
 function drawTriangles(ctx, points, delaunay) {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    drawnLines.clear();
     const triangleCount = delaunay.triangles.length / 3;
     for (let i = 0; i < triangleCount; i++) {
         drawTriangle(ctx, points, delaunay, i);
@@ -153,7 +155,7 @@ function drawTriangle(ctx, points, delaunay, index) {
         return { ...points[pointIndex], index: pointIndex };
     });
     const triangleIsOnHull = trianglePoints.some(({ index }) => hull.includes(index));
-    if (triangleIsOnHull || isTriangleTooThin(trianglePoints)) {
+    if (triangleIsOnHull) {
         return;
     }
     trianglePoints.forEach((point, i) => {
@@ -164,13 +166,34 @@ function drawTriangle(ctx, points, delaunay, index) {
 }
 
 /**
+ * @param {{x: number, y: number}} p0
+ * @param {{x: number, y: number}} p1
+ * @return {string}
+ */
+function getLineHash(p0, p1) {
+    const minX = Math.min(p0.x, p1.x);
+    const minY = Math.min(p0.y, p1.y);
+    const maxX = Math.max(p0.x, p1.x);
+    const maxY = Math.max(p0.y, p1.y);
+    return `${minX}${minY}${maxX}${maxY}`;
+}
+
+/**
  * @param {CanvasRenderingContext2D} ctx
  * @param {{x: number, y: number}} point1
  * @param {{x: number, y: number}} point2
  */
-function drawLine(ctx, { x: x0, y: y0 }, { x: x1, y: y1 }) {
+function drawLine(ctx, p0, p1) {
+    const { x: x0, y: y0 } = p0;
+    const { x: x1, y: y1 } = p1;
+    const lineHash = getLineHash(p0, p1);
+    if (drawnLines.has(lineHash)) {
+        // TODO: Better way to prevent duplicate line drawing
+        return;
+    }
     ctx.strokeStyle = LINE_COLOR;
-    if (distance(mousePosition, { x: x0, y: y0 }) < 50) {
+    const lineCenter = { x: (x0 + x1) / 2, y: (y0 + y1) / 2 };
+    if (distance(mousePosition, lineCenter) < 50 || distance(mousePosition, p0) < 50 || distance(mousePosition, p1) < 50) {
         ctx.strokeStyle = '#fff';
     }
     ctx.lineWidth = '1';
@@ -178,6 +201,7 @@ function drawLine(ctx, { x: x0, y: y0 }, { x: x1, y: y1 }) {
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
     ctx.stroke();
+    drawnLines.add(lineHash);
 }
 
 function isValidUpdate() {
