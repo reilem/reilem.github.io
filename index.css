@@ -103,7 +103,7 @@ p.medium {
 }
 
 p.big {
-    font-size: 3.5rem;
+    font-size: 3rem;
     word-break: normal;
 }
 
@@ -188,7 +188,7 @@ a:active {
     align-items: flex-start;
     background-color: var(--background-color-translucent);
     box-shadow: 0rem 0rem 1rem 1rem var(--background-color-translucent);
-    padding: 1rem;
+    padding: 1rem 2rem;
     border-radius: 1rem;
     margin: 0rem 3rem;
 }
