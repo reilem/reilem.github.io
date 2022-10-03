@@ -1,7 +1,5 @@
 /**
  * TODO:
- * - Complete the mesh network, ideas:
- *   - Mouse over move, points try to move away from mouse for a certain max distance
  * - CSS animations of things appearing as you scroll down
  * - More content, timeline, etc.
  */
