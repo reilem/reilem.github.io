@@ -11,6 +11,7 @@ const HORIZONTAL_MESH_MARGIN = 20;
 const SEED = '223347780';
 const MIN_TRIANGLE_SIZE = 30;
 
+let currentAnimation = null;
 let previousMousePosition = null;
 const mousePosition = { x: 0, y: 0 };
 
@@ -146,12 +147,16 @@ function updateMesh(ctx, lines) {
         drawLines(ctx, lines);
         previousMousePosition = { ...mousePosition };
     }
-    requestAnimationFrame(() => {
+    currentAnimation = requestAnimationFrame(() => {
         updateMesh(ctx, lines);
     });
 }
 
 function startMesh() {
+    if (currentAnimation) {
+        cancelAnimationFrame(currentAnimation);
+        previousMousePosition = null;
+    }
     const random = new Math.seedrandom(SEED);
     const ctx = initialiseCanvas();
     const points = generateMeshPoints(random);
@@ -160,5 +165,6 @@ function startMesh() {
     updateMesh(ctx, lines);
 }
 
+window.onresize = startMesh;
 window.onload = startMesh;
 window.onmousemove = setMousePosition;

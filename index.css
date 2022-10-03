@@ -185,10 +185,12 @@ a:active {
 .center-text-container .center-text {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     background-color: var(--background-color-translucent);
     box-shadow: 0rem 0rem 1rem 1rem var(--background-color-translucent);
     padding: 1rem;
     border-radius: 1rem;
+    margin: 0rem 3rem;
 }
 
 .footer {
