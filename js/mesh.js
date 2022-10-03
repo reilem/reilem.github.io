@@ -1,6 +1,6 @@
 const VERTICAL_MESH_MARGIN = 60;
 const HORIZONTAL_MESH_MARGIN = 20;
-const SEED = '223347780';
+const SEED = '923547680';
 const MIN_TRIANGLE_SIZE = 30;
 const LINE_WIDTH = 0.75;
 const MOUSE_INNER_CIRCLE = 50;
@@ -127,7 +127,9 @@ function drawLines(ctx, lines) {
     ctx.strokeStyle = grad;
     ctx.lineWidth = 0.5;
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.beginPath();
     lines.forEach(({ p0, p1 }) => drawLine(ctx, p0, p1));
+    ctx.stroke();
 }
 
 /**
@@ -138,10 +140,8 @@ function drawLines(ctx, lines) {
 function drawLine(ctx, p0, p1) {
     const { x: x0, y: y0 } = p0;
     const { x: x1, y: y1 } = p1;
-    ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
-    ctx.stroke();
 }
 
 /**
