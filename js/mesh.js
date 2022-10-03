@@ -1,6 +1,6 @@
-const VERTICAL_MESH_MARGIN = 60;
+const VERTICAL_MESH_MARGIN = 80;
 const HORIZONTAL_MESH_MARGIN = 20;
-const SEED = '923547680';
+const SEED = '1111011101';
 const MIN_TRIANGLE_SIZE = 30;
 const LINE_WIDTH = 0.75;
 const MOUSE_INNER_CIRCLE = 50;
@@ -25,9 +25,9 @@ function setMousePosition(event) {
  * @returns {CanvasRenderingContext2D}
  */
 function initialiseCanvas() {
-    const canvas = document.getElementById('meshcanvas01');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const canvas = getCanvas();
+    canvas.width = getWidth(canvas);
+    canvas.height = getHeight(canvas);
     if (!canvas) {
         console.warn('Failed to get canvas');
         return;
@@ -45,9 +45,10 @@ function initialiseCanvas() {
  * @returns {{x: number, y: number}[]}
  */
 function generateMeshPoints(random) {
-    const pointCount = getPointCount();
-    const width = window.innerWidth - HORIZONTAL_MESH_MARGIN * 2;
-    const height = window.innerHeight - VERTICAL_MESH_MARGIN * 2;
+    const { width: canvasWidth, height: canvasHeight } = getCanvasSize();
+    const pointCount = getPointCount(canvasWidth);
+    const width = canvasWidth - HORIZONTAL_MESH_MARGIN * 2;
+    const height = canvasHeight - VERTICAL_MESH_MARGIN * 2;
     const points = generatePoints(random, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, pointCount);
     return prunePoints(points, MIN_TRIANGLE_SIZE);
 }
@@ -98,7 +99,7 @@ function updateLoadingAnimation() {
     if (loadingAnimationYPosition == null) {
         return;
     }
-    if (loadingAnimationYPosition >= window.innerHeight + ANIMATION_SPREAD) {
+    if (loadingAnimationYPosition >= getCanvasSize().height + ANIMATION_SPREAD) {
         loadingAnimationYPosition = null;
         previousMousePosition = null;
     } else {
@@ -126,7 +127,8 @@ function drawLines(ctx, lines) {
     }
     ctx.strokeStyle = grad;
     ctx.lineWidth = 0.5;
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    const { width, height } = getCanvasSize();
+    ctx.clearRect(0, 0, width, height);
     ctx.beginPath();
     lines.forEach(({ p0, p1 }) => drawLine(ctx, p0, p1));
     ctx.stroke();
@@ -152,7 +154,7 @@ function isValidUpdate() {
         return true;
     }
     return (
-        mousePosition.y < window.innerHeight &&
+        mousePosition.y < getCanvasSize().height + MOUSE_OUTER_CIRCLE &&
         (previousMousePosition == null || mousePosition.x !== previousMousePosition.x || mousePosition.y !== previousMousePosition.y)
     );
 }
