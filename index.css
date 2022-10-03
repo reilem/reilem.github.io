@@ -1,12 +1,14 @@
-body {
-    --primary-color: #242424;
-    --secondary-color: #BFBFBF;
-    --dark-grey: #5C5C5C;
-    --grey: #8F8F8F;
-    --light-grey: #DEDEDE;
+:root {
+    --background-color: #242424;
+    --background-color-translucent: rgba(36, 36, 36, 0.8);
+    --border-color: #bfbfbf;
     --primary-font-color: #fcfcfc;
-    --secondary-font-color: var(--primary-color);
-    background-color: var(--primary-color);
+    --mesh-color: #5d5d5d;
+    --mesh-highlight-color: #fff;
+}
+
+body {
+    background-color: var(--background-color);
     padding: 0;
     margin: 0;
     display: flex;
@@ -16,27 +18,27 @@ body {
 
 @font-face {
     font-family: Ubuntu-Light;
-    src: url("fonts/Ubuntu/Ubuntu-Light.ttf")
+    src: url('fonts/Ubuntu/Ubuntu-Light.ttf');
 }
 
 @font-face {
     font-family: Ubuntu-LightItalic;
-    src: url("fonts/Ubuntu/Ubuntu-LightItalic.ttf")
+    src: url('fonts/Ubuntu/Ubuntu-LightItalic.ttf');
 }
 
 @font-face {
     font-family: Ubuntu;
-    src: url("fonts/Ubuntu/Ubuntu-Regular.ttf");
+    src: url('fonts/Ubuntu/Ubuntu-Regular.ttf');
 }
 
 @font-face {
     font-family: Gudea;
-    src: url("fonts/Gudea/Gudea-Regular.ttf");
+    src: url('fonts/Gudea/Gudea-Regular.ttf');
 }
 
 @font-face {
     font-family: Alef;
-    src: url("fonts/Alef/Alef-Regular.ttf");
+    src: url('fonts/Alef/Alef-Regular.ttf');
 }
 
 .full-screen {
@@ -47,6 +49,17 @@ body {
 
 .second-screen {
     align-items: center;
+}
+
+.canvas {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
 }
 
 h1 {
@@ -90,7 +103,7 @@ p.medium {
 }
 
 p.big {
-    font-size: 3.5rem;
+    font-size: 3rem;
     word-break: normal;
 }
 
@@ -106,13 +119,33 @@ p.miniquote {
     word-break: break-word;
 }
 
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
 .email-link {
     -webkit-text-decoration-color: var(--primary-font-color);
     text-decoration-color: var(--primary-font-color);
 }
 
 .header {
+    position: absolute;
     display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -137,7 +170,7 @@ p.miniquote {
 }
 
 .header .text-btn {
-    font-size: 2rem
+    font-size: 2rem;
 }
 
 .center-text-container {
@@ -153,7 +186,11 @@ p.miniquote {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: 0 3rem;
+    background-color: var(--background-color-translucent);
+    box-shadow: 0rem 0rem 1rem 1rem var(--background-color-translucent);
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    margin: 0rem 3rem;
 }
 
 .footer {
@@ -200,7 +237,7 @@ p.miniquote {
     padding: 0em 1rem;
     overflow: hidden;
     border-radius: 0.5rem;
-    border: var(--secondary-color) solid 0.1rem;
+    border: var(--border-color) solid 0.1rem;
 }
 
 .img-container {
@@ -216,18 +253,18 @@ p.miniquote {
     height: 100px;
 }
 
+.img-container img:hover {
+    transform: scale(1.1);
+    opacity: 0.7;
+}
+
+.img-container img:active {
+    transform: scale(0.95);
+}
+
 .img-container .small-logo {
     width: 100px;
     height: 75px;
-}
-
-.img-container .logo-white {
-    background-color: var(--light-grey);
-    border-color: var(--light-grey);
-    border-style: solid;
-    border-top: 0;
-    border-bottom: 0;
-    border-radius: 1rem;
 }
 
 .img-container p.img-caption {
@@ -265,7 +302,7 @@ p.miniquote {
 }
 
 .button:hover {
-    opacity: 0.70;
+    opacity: 0.7;
 }
 
 .button:focus {
@@ -281,13 +318,26 @@ p.miniquote {
     margin-left: 2rem;
 }
 
+.opacity-transition.no-js {
+    opacity: 1;
+}
+
+.opacity-transition {
+    opacity: 0;
+}
+
+.opacity-transition.active {
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+
 @media (min-width: 700px) {
     .exp-table {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-@media screen and (max-width : 470px) {
+@media screen and (max-width: 470px) {
     h1 {
         font-size: 1.5rem;
     }
@@ -298,7 +348,7 @@ p.miniquote {
         padding-right: 1.5rem;
     }
     .header .text-btn {
-        font-size: 1.5rem
+        font-size: 1.5rem;
     }
     .header .icon-btn {
         font-size: 1.5rem;
@@ -337,7 +387,7 @@ p.miniquote {
     }
 }
 
-@media screen and (max-width : 360px) {
+@media screen and (max-width: 360px) {
     h1 {
         font-size: 1rem;
     }
@@ -348,7 +398,7 @@ p.miniquote {
         padding-right: 1rem;
     }
     .header .text-btn {
-        font-size: 1rem
+        font-size: 1rem;
     }
     .header .icon-btn {
         font-size: 1rem;
