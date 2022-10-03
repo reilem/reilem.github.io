@@ -62,3 +62,22 @@ function prunePoints(points, limit) {
         return !sortedPoints.slice(index + 1, index + 10).some(point2 => distance(point, point2) < limit);
     });
 }
+
+/**
+ * @returns {{ meshColor: string, meshHighlightColor: string, backgroundColor: string }}
+ */
+function getColors() {
+    const style = getComputedStyle(document.documentElement);
+    return {
+        meshColor: style.getPropertyValue('--mesh-color'),
+        meshHighlightColor: style.getPropertyValue('--mesh-highlight-color'),
+        backgroundColor: style.getPropertyValue('--background-color'),
+    };
+}
+
+/**
+ * @returns {number}
+ */
+function getPointCount() {
+    return window.innerWidth / 3;
+}

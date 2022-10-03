@@ -1,17 +1,13 @@
 /**
  * TODO:
  * - Complete the mesh network, ideas:
- *   - Passive random line glowing
+ *   - On load, do a reveal of the mesh (use gradient) from top to bottom
  *   - Mouse over move, points try to move away from mouse for a certain max distance
- * - Make code/tool icons clickable
  * - CSS animations of things appearing as you scroll down
  * - More content, timeline, etc.
  */
-const POINT_COUNT = window.innerWidth / 3;
-const HIGHLIGHT_COLOR = '#fff';
-const LINE_COLOR = '#565656';
-const VERTICAL_MESH_MARGIN = 100;
-const HORIZONTAL_MESH_MARGIN = 40;
+const VERTICAL_MESH_MARGIN = 60;
+const HORIZONTAL_MESH_MARGIN = 20;
 const SEED = '223347780';
 const MIN_TRIANGLE_SIZE = 30;
 
@@ -61,9 +57,10 @@ function initialiseCanvas() {
  * @returns {{x: number, y: number}[]}
  */
 function generateMeshPoints(random) {
+    const pointCount = getPointCount();
     const width = window.innerWidth - HORIZONTAL_MESH_MARGIN * 2;
     const height = window.innerHeight - VERTICAL_MESH_MARGIN * 2;
-    const points = generatePoints(random, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, POINT_COUNT);
+    const points = generatePoints(random, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, pointCount);
     return prunePoints(points, MIN_TRIANGLE_SIZE);
 }
 
@@ -106,8 +103,9 @@ function getLinesToDraw(points, delaunay) {
 function drawLines(ctx, lines) {
     const { x, y } = mousePosition;
     const grad = ctx.createRadialGradient(x, y, 50, x, y, 150);
-    grad.addColorStop(0, HIGHLIGHT_COLOR);
-    grad.addColorStop(1, LINE_COLOR);
+    const colors = getColors();
+    grad.addColorStop(0, colors.meshHighlightColor);
+    grad.addColorStop(1, colors.meshColor);
     ctx.strokeStyle = grad;
     ctx.lineWidth = 0.5;
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);

@@ -1,12 +1,14 @@
-body {
-    --primary-color: #242424;
-    --secondary-color: #bfbfbf;
-    --dark-grey: #5c5c5c;
-    --grey: #8f8f8f;
-    --light-grey: #dedede;
+:root {
+    --background-color: #242424;
+    --background-color-translucent: rgba(36, 36, 36, 0.8);
+    --border-color: #bfbfbf;
     --primary-font-color: #fcfcfc;
-    --secondary-font-color: var(--primary-color);
-    background-color: var(--primary-color);
+    --mesh-color: #5d5d5d;
+    --mesh-highlight-color: #fff;
+}
+
+body {
+    background-color: var(--background-color);
     padding: 0;
     margin: 0;
     display: flex;
@@ -183,8 +185,10 @@ a:active {
 .center-text-container .center-text {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin: 0 3rem;
+    background-color: var(--background-color-translucent);
+    box-shadow: 0rem 0rem 1rem 1rem var(--background-color-translucent);
+    padding: 1rem;
+    border-radius: 1rem;
 }
 
 .footer {
@@ -231,7 +235,7 @@ a:active {
     padding: 0em 1rem;
     overflow: hidden;
     border-radius: 0.5rem;
-    border: var(--secondary-color) solid 0.1rem;
+    border: var(--border-color) solid 0.1rem;
 }
 
 .img-container {
@@ -255,15 +259,6 @@ a:active {
 .img-container .small-logo {
     width: 100px;
     height: 75px;
-}
-
-.img-container .logo-white {
-    background-color: var(--light-grey);
-    border-color: var(--light-grey);
-    border-style: solid;
-    border-top: 0;
-    border-bottom: 0;
-    border-radius: 1rem;
 }
 
 .img-container p.img-caption {
