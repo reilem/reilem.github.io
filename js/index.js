@@ -1,14 +1,15 @@
 /**
- * TODO:
- * - CSS animations of things appearing as you scroll down
- * - More content, timeline, etc.
+ * Called when window resizes
  */
-
 function onResize() {
     startMesh();
 }
 
+/**
+ * Called when window loads
+ */
 function onLoad() {
+    wipeNoJsTags();
     observeIntersections();
     startMesh();
 }

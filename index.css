@@ -318,6 +318,19 @@ a:active {
     margin-left: 2rem;
 }
 
+.opacity-transition.no-js {
+    opacity: 1;
+}
+
+.opacity-transition {
+    opacity: 0;
+}
+
+.opacity-transition.active {
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+
 @media (min-width: 700px) {
     .exp-table {
         grid-template-columns: 1fr 1fr;
