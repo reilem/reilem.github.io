@@ -1,8 +1,3 @@
-/**
- * TODO:
- * - CSS animations of things appearing as you scroll down
- * - More content, timeline, etc.
- */
 const VERTICAL_MESH_MARGIN = 60;
 const HORIZONTAL_MESH_MARGIN = 20;
 const SEED = '223347780';
@@ -17,17 +12,6 @@ let loadingAnimationYPosition = 0;
 let currentAnimation = null;
 let previousMousePosition = null;
 const mousePosition = { x: 0, y: 0 };
-
-/**
- * Scrolls down one page
- */
-function scrollToSecondPage() {
-    window.scroll({
-        top: window.innerHeight,
-        left: 0,
-        behavior: 'smooth',
-    });
-}
 
 /**
  * @param {MouseEvent} event
@@ -204,6 +188,4 @@ function startMesh() {
     updateMesh(ctx, lines);
 }
 
-window.onresize = startMesh;
-window.onload = startMesh;
 window.onmousemove = setMousePosition;
