@@ -1,3 +1,6 @@
+const CANVAS_ID = 'meshcanvas01';
+const CANVAS_SCALE = 2;
+
 /**
  * @param {number} size
  * @param {string[]}
@@ -76,8 +79,45 @@ function getColors() {
 }
 
 /**
+ * @param {number} width
  * @returns {number}
  */
-function getPointCount() {
-    return window.innerWidth / 3;
+function getPointCount(width) {
+    return width / 2.5;
+}
+
+/**
+ * @returns {HTMLElement}
+ */
+function getCanvas() {
+    return document.getElementById(CANVAS_ID);
+}
+
+function getCanvasSize() {
+    const canvas = getCanvas();
+    return { width: getWidth(canvas), height: getHeight(canvas) };
+}
+
+/**
+ * @param {HTMLElement} htmlElement
+ * @returns {number}
+ */
+function getWidth(htmlElement) {
+    return htmlElement.offsetWidth;
+}
+
+/**
+ * @param {HTMLElement} htmlElement
+ * @returns {number}
+ */
+function getHeight(htmlElement) {
+    return htmlElement.offsetHeight;
+}
+
+/**
+ * @param {number} value
+ * @returns {number}
+ */
+function toCanvasScale(value) {
+    return value * CANVAS_SCALE;
 }

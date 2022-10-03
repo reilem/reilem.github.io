@@ -1,6 +1,6 @@
-const VERTICAL_MESH_MARGIN = 60;
+const VERTICAL_MESH_MARGIN = 80;
 const HORIZONTAL_MESH_MARGIN = 20;
-const SEED = '923547680';
+const SEED = '1111011101';
 const MIN_TRIANGLE_SIZE = 30;
 const LINE_WIDTH = 0.75;
 const MOUSE_INNER_CIRCLE = 50;
@@ -25,9 +25,9 @@ function setMousePosition(event) {
  * @returns {CanvasRenderingContext2D}
  */
 function initialiseCanvas() {
-    const canvas = document.getElementById('meshcanvas01');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const canvas = getCanvas();
+    canvas.width = toCanvasScale(getWidth(canvas));
+    canvas.height = toCanvasScale(getHeight(canvas));
     if (!canvas) {
         console.warn('Failed to get canvas');
         return;
@@ -45,9 +45,10 @@ function initialiseCanvas() {
  * @returns {{x: number, y: number}[]}
  */
 function generateMeshPoints(random) {
-    const pointCount = getPointCount();
-    const width = window.innerWidth - HORIZONTAL_MESH_MARGIN * 2;
-    const height = window.innerHeight - VERTICAL_MESH_MARGIN * 2;
+    const { width: canvasWidth, height: canvasHeight } = getCanvasSize();
+    const pointCount = getPointCount(canvasWidth);
+    const width = canvasWidth - HORIZONTAL_MESH_MARGIN * 2;
+    const height = canvasHeight - VERTICAL_MESH_MARGIN * 2;
     const points = generatePoints(random, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, pointCount);
     return prunePoints(points, MIN_TRIANGLE_SIZE);
 }
@@ -98,7 +99,7 @@ function updateLoadingAnimation() {
     if (loadingAnimationYPosition == null) {
         return;
     }
-    if (loadingAnimationYPosition >= window.innerHeight + ANIMATION_SPREAD) {
+    if (loadingAnimationYPosition >= getCanvasSize().height + ANIMATION_SPREAD) {
         loadingAnimationYPosition = null;
         previousMousePosition = null;
     } else {
@@ -115,18 +116,25 @@ function drawLines(ctx, lines) {
     const colors = getColors();
     let grad;
     if (isShowingLoadingAnimation()) {
-        grad = ctx.createLinearGradient(0, loadingAnimationYPosition, 0, loadingAnimationYPosition + ANIMATION_SPREAD);
+        const scaledYPosition = toCanvasScale(loadingAnimationYPosition);
+        const scaledSpread = toCanvasScale(ANIMATION_SPREAD);
+        grad = ctx.createLinearGradient(0, scaledYPosition, 0, scaledYPosition + scaledSpread);
         grad.addColorStop(0, colors.meshColor);
         grad.addColorStop(0.5, colors.meshHighlightColor);
         grad.addColorStop(1, colors.backgroundColor);
     } else {
-        grad = ctx.createRadialGradient(x, y, MOUSE_INNER_CIRCLE, x, y, MOUSE_OUTER_CIRCLE);
+        const scaledX = toCanvasScale(x);
+        const scaledY = toCanvasScale(y);
+        const scaledInner = toCanvasScale(MOUSE_INNER_CIRCLE);
+        const scaledOuter = toCanvasScale(MOUSE_OUTER_CIRCLE);
+        grad = ctx.createRadialGradient(scaledX, scaledY, scaledInner, scaledX, scaledY, scaledOuter);
         grad.addColorStop(0, colors.meshHighlightColor);
         grad.addColorStop(1, colors.meshColor);
     }
     ctx.strokeStyle = grad;
-    ctx.lineWidth = 0.5;
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.lineWidth = toCanvasScale(LINE_WIDTH);
+    const { width, height } = getCanvasSize();
+    ctx.clearRect(0, 0, toCanvasScale(width), toCanvasScale(height));
     ctx.beginPath();
     lines.forEach(({ p0, p1 }) => drawLine(ctx, p0, p1));
     ctx.stroke();
@@ -140,8 +148,8 @@ function drawLines(ctx, lines) {
 function drawLine(ctx, p0, p1) {
     const { x: x0, y: y0 } = p0;
     const { x: x1, y: y1 } = p1;
-    ctx.moveTo(x0, y0);
-    ctx.lineTo(x1, y1);
+    ctx.moveTo(toCanvasScale(x0), toCanvasScale(y0));
+    ctx.lineTo(toCanvasScale(x1), toCanvasScale(y1));
 }
 
 /**
@@ -152,7 +160,7 @@ function isValidUpdate() {
         return true;
     }
     return (
-        mousePosition.y < window.innerHeight &&
+        mousePosition.y < getCanvasSize().height + MOUSE_OUTER_CIRCLE &&
         (previousMousePosition == null || mousePosition.x !== previousMousePosition.x || mousePosition.y !== previousMousePosition.y)
     );
 }
