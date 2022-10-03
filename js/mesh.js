@@ -26,8 +26,8 @@ function setMousePosition(event) {
  */
 function initialiseCanvas() {
     const canvas = getCanvas();
-    canvas.width = getWidth(canvas);
-    canvas.height = getHeight(canvas);
+    canvas.width = toCanvasScale(getWidth(canvas));
+    canvas.height = toCanvasScale(getHeight(canvas));
     if (!canvas) {
         console.warn('Failed to get canvas');
         return;
@@ -116,19 +116,25 @@ function drawLines(ctx, lines) {
     const colors = getColors();
     let grad;
     if (isShowingLoadingAnimation()) {
-        grad = ctx.createLinearGradient(0, loadingAnimationYPosition, 0, loadingAnimationYPosition + ANIMATION_SPREAD);
+        const scaledYPosition = toCanvasScale(loadingAnimationYPosition);
+        const scaledSpread = toCanvasScale(ANIMATION_SPREAD);
+        grad = ctx.createLinearGradient(0, scaledYPosition, 0, scaledYPosition + scaledSpread);
         grad.addColorStop(0, colors.meshColor);
         grad.addColorStop(0.5, colors.meshHighlightColor);
         grad.addColorStop(1, colors.backgroundColor);
     } else {
-        grad = ctx.createRadialGradient(x, y, MOUSE_INNER_CIRCLE, x, y, MOUSE_OUTER_CIRCLE);
+        const scaledX = toCanvasScale(x);
+        const scaledY = toCanvasScale(y);
+        const scaledInner = toCanvasScale(MOUSE_INNER_CIRCLE);
+        const scaledOuter = toCanvasScale(MOUSE_OUTER_CIRCLE);
+        grad = ctx.createRadialGradient(scaledX, scaledY, scaledInner, scaledX, scaledY, scaledOuter);
         grad.addColorStop(0, colors.meshHighlightColor);
         grad.addColorStop(1, colors.meshColor);
     }
     ctx.strokeStyle = grad;
-    ctx.lineWidth = 0.5;
+    ctx.lineWidth = toCanvasScale(LINE_WIDTH);
     const { width, height } = getCanvasSize();
-    ctx.clearRect(0, 0, width, height);
+    ctx.clearRect(0, 0, toCanvasScale(width), toCanvasScale(height));
     ctx.beginPath();
     lines.forEach(({ p0, p1 }) => drawLine(ctx, p0, p1));
     ctx.stroke();
@@ -142,8 +148,8 @@ function drawLines(ctx, lines) {
 function drawLine(ctx, p0, p1) {
     const { x: x0, y: y0 } = p0;
     const { x: x1, y: y1 } = p1;
-    ctx.moveTo(x0, y0);
-    ctx.lineTo(x1, y1);
+    ctx.moveTo(toCanvasScale(x0), toCanvasScale(y0));
+    ctx.lineTo(toCanvasScale(x1), toCanvasScale(y1));
 }
 
 /**

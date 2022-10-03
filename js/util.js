@@ -1,4 +1,6 @@
 const CANVAS_ID = 'meshcanvas01';
+const CANVAS_SCALE = 2;
+
 /**
  * @param {number} size
  * @param {string[]}
@@ -110,4 +112,12 @@ function getWidth(htmlElement) {
  */
 function getHeight(htmlElement) {
     return htmlElement.offsetHeight;
+}
+
+/**
+ * @param {number} value
+ * @returns {number}
+ */
+function toCanvasScale(value) {
+    return value * CANVAS_SCALE;
 }
