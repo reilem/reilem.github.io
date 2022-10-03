@@ -9,10 +9,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
         <!-- Used to calculate mesh triangulation -->
         <script src="https://unpkg.com/delaunator@5.0.0/delaunator.min.js"></script>
-        <!-- JS scripts for some buttons & mesh graphic -->
-        <script type="text/javascript" src="index.js"></script>
+        <!-- Main script -->
+        <script type="text/javascript" src="./js/index.js"></script>
+        <!-- Mesh graphics -->
+        <script type="text/javascript" src="./js/mesh.js"></script>
+        <!-- Scroll behaviour -->
+        <script type="text/javascript" src="./js/scrolling.js"></script>
         <!-- Util functions -->
-        <script type="text/javascript" src="util.js"></script>
+        <script type="text/javascript" src="./js/util.js"></script>
         <meta name="description" content="Hi, I'm a full-stack software engineer.">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>reinert.dev</title>
@@ -30,7 +34,7 @@
             <div class="center-text-container">
                 <div class="center-text">
                     <p class="medium">Hi,</p>
-                    <p class="big">I am Reinert Lemmens.</p>
+                    <p class="big">I'm Reinert Lemmens.</p>
                     <p>A full-stack software engineer based in Leuven, Belgium.</p>
                 </div>
                 <!-- TODO: some floating svg mesh network from right to left -->
@@ -44,162 +48,161 @@
         </div>
         <div class="mid-line"></div>
         <div class="full-screen second-screen">
-            <h2>Technical Experience</h2>
-            <p class="miniquote">Including, but not limited to...</p>
+            <h2 class="opacity-transition no-js">Technical Experience</h2>
+            <p class="miniquote opacity-transition no-js">Including, but not limited to...</p>
             <div class="exp-table">
-                <div>
+                <div class="opacity-transition no-js">
                     <h3>Mobile</h3>
                     <div class="exp-box">
-                        <div class="img-container">
+                        <a class="img-container" href="https://flutter.dev" target="_blank">
                             <img class="logo" src="svgs/flutter.svg">
                             <p class="img-caption">Flutter</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://reactnative.dev/" target="_blank">
                             <img class="logo" src="svgs/react.svg">
                             <p class="img-caption">React-Native</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://developer.android.com/" target="_blank">
                             <img class="logo" src="svgs/android.svg">
                             <p class="img-caption">Native Android</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://developer.apple.com/ios/" target="_blank">
                             <img class="logo" src="svgs/ios.svg">
                             <p class="img-caption">Native iOS</p>
-                        </div>
+                        </a>
                     </div>
                 </div>
-                <div>
+                <div class="opacity-transition no-js">
                     <h3>Web</h3>
                     <div class="exp-box">
-                        <div class="img-container">
+                        <a class="img-container" href="https://reactjs.org/" target="_blank">
                             <img class="logo" src="svgs/react.svg">
                             <p class="img-caption">React</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://html.com/" target="_blank">
                             <img class="logo" src="svgs/html.svg">
                             <p class="img-caption">HTML</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank">
                             <img class="logo" src="svgs/css.svg">
                             <p class="img-caption">CSS</p>
-                        </div>
+                        </a>
                     </div>
                 </div>
-                <div>
+                <div class="opacity-transition no-js">
                     <h3>Tools & Deployment</h3>
                     <div class="exp-box">
-                        <div class="img-container tool-img-container">
+                        <a class="img-container tool-img-container" href="https://git-scm.com/" target="_blank">
                             <img class="logo" src="svgs/git.svg">
                             <p class="img-caption">Git</p>
-                        </div>
-                        <div class="img-container tool-img-container">
+                        </a>
+                        <a class="img-container tool-img-container" href="https://azure.microsoft.com/" target="_blank">
                             <img class="logo" src="svgs/azure.svg">
                             <p class="img-caption">Azure</p>
-                        </div>
-                        <div class="img-container tool-img-container">
+                        </a>
+                        <a class="img-container tool-img-container" href="https://firebase.google.com/" target="_blank">
                             <img class="logo" src="svgs/firebase.svg">
                             <p class="img-caption">Firebase</p>
-                        </div>
-                        <div class="img-container tool-img-container">
+                        </a>
+                        <a class="img-container tool-img-container" href="https://www.docker.com/" target="_blank">
                             <img class="logo" src="svgs/docker.svg">
                             <p class="img-caption">Docker</p>
-                        </div>
-                        <div class="img-container tool-img-container">
+                        </a>
+                        <a class="img-container tool-img-container" href="https://kubernetes.io/" target="_blank">
                             <img class="logo" src="svgs/kubernetes.svg">
                             <p class="img-caption">Kubernetes</p>
-                        </div>
-                        <div class="img-container tool-img-container">
+                        </a>
+                        <a class="img-container tool-img-container" href="https://cloud.google.com/kubernetes-engine" target="_blank">
                             <img class="logo" src="svgs/gke.svg">
                             <p class="img-caption">GKE</p>
-                        </div>
+                        </a>
                     </div>
                 </div>
-                <div>
+                <div class="opacity-transition no-js">
                     <h3>Backend</h3>
                     <div class="exp-box">
-                        <div class="img-container">
+                        <a class="img-container" href="https://nodejs.org/en/" target="_blank">
                             <img class="small-logo" src="svgs/nodejs.svg">
                             <p class="img-caption">Node.js</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://www.fastify.io/" target="_blank">
                             <img class="logo" src="svgs/fastify.svg">
                             <p class="img-caption">Fastify</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://expressjs.com/" target="_blank">
                             <img class="logo" src="svgs/expressjs.svg">
                             <p class="img-caption">Express</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://graphql.org/" target="_blank">
                             <img class="logo" src="svgs/graphql.svg">
                             <p class="img-caption">GraphQL</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://www.apollographql.com/" target="_blank">
                             <img class="logo" src="svgs/apollo-graphql.svg">
                             <p class="img-caption">Apollo</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://www.postgresql.org/" target="_blank">
                             <img class="logo" src="svgs/postgresql.svg">
                             <p class="img-caption">PostgreSQL</p>
-                        </div>
-                        <div class="img-container">
+                        </a>
+                        <a class="img-container" href="https://www.mysql.com/" target="_blank">
                             <img class="logo" src="svgs/mysql.svg">
                             <p class="img-caption">MySQL</p>
-                        </div>
-
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="languages-container">
+            <div class="languages-container opacity-transition no-js">
                 <h3>Languages</h3>
                 <div class="exp-box">
-                    <div class="img-container language-img-container">
+                    <a class="img-container language-img-container" href="https://www.typescriptlang.org/" target="_blank">
                         <img class="logo" src="svgs/typescript.svg">
                         <p class="img-caption">TypeScript</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://dart.dev/" target="_blank">
                         <img class="logo" src="svgs/dart.svg">
                         <p class="img-caption">Dart</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://www.swift.org/" target="_blank">
                         <img class="logo" src="svgs/swift.svg">
                         <p class="img-caption">Swift</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://www.gnu.org/software/bash/" target="_blank">
                         <img class="logo" src="svgs/bash.svg">
                         <p class="img-caption">Bash</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://kotlinlang.org/" target="_blank">
                         <img class="logo" src="svgs/kotlin.svg">
                         <p class="img-caption">Kotlin</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://www.java.com/en/" target="_blank">
                         <img class="logo" src="svgs/java.svg">
                         <p class="img-caption">Java</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://www.python.org/" target="_blank">
                         <img class="logo" src="svgs/python.svg">
                         <p class="img-caption">Python</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://www.rust-lang.org/" target="_blank">
                         <img class="logo" src="svgs/rust.svg">
                         <p class="img-caption">Rust</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html" target="_blank">
                         <img class="logo" src="svgs/objectivec.svg">
                         <p class="img-caption">Objective-C</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://www.haskell.org/" target="_blank">
                         <img class="logo" src="svgs/haskell.svg">
                         <p class="img-caption">Haskell</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://www.scala-lang.org/" target="_blank">
                         <img class="logo" src="svgs/scala.svg">
                         <p class="img-caption">Scala</p>
-                    </div>
-                    <div class="img-container language-img-container">
+                    </a>
+                    <a class="img-container language-img-container" href="https://ocaml.org/" target="_blank">
                         <img class="logo" src="svgs/ocaml.svg">
                         <p class="img-caption">Ocaml</p>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

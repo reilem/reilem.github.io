@@ -1,33 +1,17 @@
-/**
- * TODO:
- * - Complete the mesh network, ideas:
- *   - Passive random line glowing
- *   - Mouse over move, points try to move away from mouse for a certain max distance
- * - Make code/tool icons clickable
- * - CSS animations of things appearing as you scroll down
- * - More content, timeline, etc.
- */
-const POINT_COUNT = window.innerWidth / 3;
-const HIGHLIGHT_COLOR = '#fff';
-const LINE_COLOR = '#565656';
-const VERTICAL_MESH_MARGIN = 100;
-const HORIZONTAL_MESH_MARGIN = 40;
+const VERTICAL_MESH_MARGIN = 60;
+const HORIZONTAL_MESH_MARGIN = 20;
 const SEED = '223347780';
 const MIN_TRIANGLE_SIZE = 30;
+const LINE_WIDTH = 0.75;
+const MOUSE_INNER_CIRCLE = 50;
+const MOUSE_OUTER_CIRCLE = 150;
+const ANIMATION_SPEED = 25;
+const ANIMATION_SPREAD = 150;
 
+let loadingAnimationYPosition = 0;
+let currentAnimation = null;
 let previousMousePosition = null;
 const mousePosition = { x: 0, y: 0 };
-
-/**
- * Scrolls down one page
- */
-function scrollToSecondPage() {
-    window.scroll({
-        top: window.innerHeight,
-        left: 0,
-        behavior: 'smooth',
-    });
-}
 
 /**
  * @param {MouseEvent} event
@@ -61,9 +45,10 @@ function initialiseCanvas() {
  * @returns {{x: number, y: number}[]}
  */
 function generateMeshPoints(random) {
+    const pointCount = getPointCount();
     const width = window.innerWidth - HORIZONTAL_MESH_MARGIN * 2;
     const height = window.innerHeight - VERTICAL_MESH_MARGIN * 2;
-    const points = generatePoints(random, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, POINT_COUNT);
+    const points = generatePoints(random, HORIZONTAL_MESH_MARGIN, VERTICAL_MESH_MARGIN, width, height, pointCount);
     return prunePoints(points, MIN_TRIANGLE_SIZE);
 }
 
@@ -100,14 +85,45 @@ function getLinesToDraw(points, delaunay) {
 }
 
 /**
+ * @returns {boolean}
+ */
+function isShowingLoadingAnimation() {
+    return loadingAnimationYPosition != null;
+}
+
+/**
+ * Updates the loading animation position
+ */
+function updateLoadingAnimation() {
+    if (loadingAnimationYPosition == null) {
+        return;
+    }
+    if (loadingAnimationYPosition >= window.innerHeight + ANIMATION_SPREAD) {
+        loadingAnimationYPosition = null;
+        previousMousePosition = null;
+    } else {
+        loadingAnimationYPosition += ANIMATION_SPEED;
+    }
+}
+
+/**
  * @param {CanvasRenderingContext2D} ctx
  * @param {{p0: {x: number, y: number, index: number}, p1: {x: number, y: number, index: number}}[]} lines
  */
 function drawLines(ctx, lines) {
     const { x, y } = mousePosition;
-    const grad = ctx.createRadialGradient(x, y, 50, x, y, 150);
-    grad.addColorStop(0, HIGHLIGHT_COLOR);
-    grad.addColorStop(1, LINE_COLOR);
+    const colors = getColors();
+    let grad;
+    if (isShowingLoadingAnimation()) {
+        grad = ctx.createLinearGradient(0, loadingAnimationYPosition, 0, loadingAnimationYPosition + ANIMATION_SPREAD);
+        grad.addColorStop(0, colors.meshColor);
+        grad.addColorStop(0.5, colors.meshHighlightColor);
+        grad.addColorStop(1, colors.backgroundColor);
+    } else {
+        grad = ctx.createRadialGradient(x, y, MOUSE_INNER_CIRCLE, x, y, MOUSE_OUTER_CIRCLE);
+        grad.addColorStop(0, colors.meshHighlightColor);
+        grad.addColorStop(1, colors.meshColor);
+    }
     ctx.strokeStyle = grad;
     ctx.lineWidth = 0.5;
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
@@ -132,6 +148,9 @@ function drawLine(ctx, p0, p1) {
  * @returns {boolean}
  */
 function isValidUpdate() {
+    if (loadingAnimationYPosition != null) {
+        return true;
+    }
     return (
         mousePosition.y < window.innerHeight &&
         (previousMousePosition == null || mousePosition.x !== previousMousePosition.x || mousePosition.y !== previousMousePosition.y)
@@ -139,7 +158,6 @@ function isValidUpdate() {
 }
 
 /**
- *
  * @param {CanvasRenderingContext2D} ctx
  * @param {{p0: {x: number, y: number, index: number}, p1: {x: number, y: number, index: number}}[]} lines
  */
@@ -147,13 +165,21 @@ function updateMesh(ctx, lines) {
     if (isValidUpdate()) {
         drawLines(ctx, lines);
         previousMousePosition = { ...mousePosition };
+        updateLoadingAnimation();
     }
-    requestAnimationFrame(() => {
+    currentAnimation = requestAnimationFrame(() => {
         updateMesh(ctx, lines);
     });
 }
 
+/**
+ * Starts a new mesh animation
+ */
 function startMesh() {
+    if (currentAnimation) {
+        cancelAnimationFrame(currentAnimation);
+        previousMousePosition = null;
+    }
     const random = new Math.seedrandom(SEED);
     const ctx = initialiseCanvas();
     const points = generateMeshPoints(random);
@@ -162,5 +188,4 @@ function startMesh() {
     updateMesh(ctx, lines);
 }
 
-window.onload = startMesh;
 window.onmousemove = setMousePosition;
