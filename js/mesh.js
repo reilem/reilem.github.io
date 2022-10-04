@@ -124,8 +124,8 @@ function drawLines(ctx, lines) {
     } else {
         const scaledX = toCanvasScale(x);
         const scaledY = toCanvasScale(y);
-        const scaledInner = toCanvasScale(getMouseInnerCircle(height));
-        const scaledOuter = toCanvasScale(getMouseOuterCircle(height));
+        const scaledInner = toCanvasScale(getMouseInnerCircle(width, height));
+        const scaledOuter = toCanvasScale(getMouseOuterCircle(width, height));
         grad = ctx.createRadialGradient(scaledX, scaledY, scaledInner, scaledX, scaledY, scaledOuter);
         grad.addColorStop(0, colors.meshHighlightColor);
         grad.addColorStop(1, colors.meshColor);
@@ -159,7 +159,7 @@ function isValidUpdate() {
     }
     const { width, height } = getCanvasSize();
     return (
-        mousePosition.y < height + getMouseOuterCircle(width) &&
+        mousePosition.y < height + getMouseOuterCircle(width, height) &&
         (previousMousePosition == null || mousePosition.x !== previousMousePosition.x || mousePosition.y !== previousMousePosition.y)
     );
 }
