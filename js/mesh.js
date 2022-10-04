@@ -4,6 +4,7 @@ const SEED = '1111011101';
 const MIN_TRIANGLE_SIZE = 30;
 const LINE_WIDTH = 0.75;
 
+let firstLoad = true;
 let loadingAnimationYPosition = 0;
 let currentAnimation = null;
 let previousMousePosition = null;
@@ -191,7 +192,12 @@ function startMesh() {
     const points = generateMeshPoints(random);
     const delaunay = new Delaunator(pointsToArray(points));
     const lines = getLinesToDraw(points, delaunay);
-    updateMesh(ctx, lines);
+    if (firstLoad) {
+        firstLoad = false;
+        setTimeout(() => updateMesh(ctx, lines), 200); // Give the time page to load before starting
+    } else {
+        updateMesh(ctx, lines);
+    }
 }
 
 window.onmousemove = setMousePosition;
