@@ -3,19 +3,57 @@ const HORIZONTAL_MESH_MARGIN = 20;
 const SEED = '1111011101';
 const MIN_TRIANGLE_SIZE = 30;
 const LINE_WIDTH = 0.75;
+const TOUCH_ANIMATION_SPEED = 0.03;
 
+// Has a mouse hover been detected on this screen
+let mouseHoverDetected = false;
+// Is this the first load
 let firstLoad = true;
+// Y coordinate position of the top-to-bottom mesh loading animation
+// 0 = starting animation, null = animation inactive
 let loadingAnimationYPosition = 0;
+// The alpha of the touch glow when pressing on mobile
+// 0 = starting, null = animation inactive
+let touchAnimationIntensity = 1; // TODO: reverse glow if hovering
+let touchAnimationDecrease = false;
+// Reference to the current animation frame
 let currentAnimation = null;
+// Previous mouse position (used to throttle updates)
 let previousMousePosition = null;
-const mousePosition = { x: 0, y: 0 };
+// Current mouse position
+const mousePosition = { x: -100, y: -100 };
 
 /**
- * @param {MouseEvent} event
+ * @param {{x: number, y: number}} position
+ * @param {boolean} hover
  */
-function setMousePosition(event) {
-    mousePosition.x = event.pageX;
-    mousePosition.y = event.pageY;
+function setMousePosition(position, hover) {
+    const isHover = mouseHoverDetected || hover;
+    if (isHover) {
+        updateMouseHoverPosition(position);
+    } else {
+        startTouchAnimation(position);
+    }
+}
+
+/**
+ * @param {{x: number, y: number}} position : ;
+ */
+function updateMouseHoverPosition(position) {
+    mouseHoverDetected = true;
+    mousePosition.x = position.x;
+    mousePosition.y = position.y;
+}
+
+/**
+ * @param {{x: number, y: number}} position : ;
+ */
+function startTouchAnimation(position) {
+    if (touchAnimationIntensity == null) {
+        mousePosition.x = position.x;
+        mousePosition.y = position.y;
+        touchAnimationIntensity = 0;
+    }
 }
 
 /**
@@ -105,6 +143,26 @@ function updateLoadingAnimation() {
     }
 }
 
+function updateTouchAnimation() {
+    if (touchAnimationIntensity == null) {
+        return;
+    }
+    // Update the intensity
+    if (touchAnimationDecrease) {
+        touchAnimationIntensity -= TOUCH_ANIMATION_SPEED;
+    } else {
+        touchAnimationIntensity += TOUCH_ANIMATION_SPEED;
+    }
+    // Flip around if it reaches 1, and stop if it drops below zero
+    if (touchAnimationIntensity >= 1.0) {
+        touchAnimationIntensity = 1.0;
+        touchAnimationDecrease = true;
+    } else if (touchAnimationIntensity <= 0) {
+        touchAnimationIntensity = null;
+        touchAnimationDecrease = false;
+    }
+}
+
 /**
  * @param {CanvasRenderingContext2D} ctx
  * @param {{p0: {x: number, y: number, index: number}, p1: {x: number, y: number, index: number}}[]} lines
@@ -127,8 +185,14 @@ function drawLines(ctx, lines) {
         const scaledInner = toCanvasScale(getMouseInnerCircle(width, height));
         const scaledOuter = toCanvasScale(getMouseOuterCircle(width, height));
         grad = ctx.createRadialGradient(scaledX, scaledY, scaledInner, scaledX, scaledY, scaledOuter);
-        grad.addColorStop(0, colors.meshHighlightColor);
-        grad.addColorStop(1, colors.meshColor);
+        if (mouseHoverDetected) {
+            grad.addColorStop(0, colors.meshHighlightColor);
+            grad.addColorStop(1, colors.meshColor);
+        } else {
+            const touchColor = getGradient(colors.meshColor, colors.meshHighlightColor, touchAnimationIntensity);
+            grad.addColorStop(0, touchColor);
+            grad.addColorStop(1, colors.meshColor);
+        }
     }
     ctx.strokeStyle = grad;
     ctx.lineWidth = toCanvasScale(LINE_WIDTH);
@@ -157,6 +221,9 @@ function isValidUpdate() {
     if (loadingAnimationYPosition != null) {
         return true;
     }
+    if (touchAnimationIntensity != null) {
+        return true;
+    }
     const { width, height } = getCanvasSize();
     return (
         mousePosition.y < height + getMouseOuterCircle(width, height) &&
@@ -173,6 +240,7 @@ function updateMesh(ctx, lines) {
         drawLines(ctx, lines);
         previousMousePosition = { ...mousePosition };
         updateLoadingAnimation();
+        updateTouchAnimation();
     }
     currentAnimation = requestAnimationFrame(() => {
         updateMesh(ctx, lines);
@@ -199,6 +267,3 @@ function startMesh() {
         updateMesh(ctx, lines);
     }
 }
-
-window.onmousemove = setMousePosition;
-window.onpointerdown = setMousePosition; // TODO: If mouse move not detected, make this do a glow up and down

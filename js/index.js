@@ -23,5 +23,23 @@ function onLoad() {
     startMesh();
 }
 
+/**
+ * Called when mouse hovers over screen (usually only mobile)
+ * @param {MouseEvent} event
+ */
+function onMouseHover(event) {
+    setMousePosition(getMousePosition(event), true);
+}
+
+/**
+ * Called when mouse press or touch goes down
+ * @param {MouseEvent} event
+ */
+function onMouseDown(event) {
+    setMousePosition(getMousePosition(event), false);
+}
+
 window.onresize = onResize;
 window.onload = onLoad;
+window.onmousemove = onMouseHover;
+window.onpointerdown = onMouseDown;
