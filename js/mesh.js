@@ -3,10 +3,6 @@ const HORIZONTAL_MESH_MARGIN = 20;
 const SEED = '1111011101';
 const MIN_TRIANGLE_SIZE = 30;
 const LINE_WIDTH = 0.75;
-const MOUSE_INNER_CIRCLE = 50;
-const MOUSE_OUTER_CIRCLE = 150;
-const ANIMATION_SPEED = 25;
-const ANIMATION_SPREAD = 150;
 
 let loadingAnimationYPosition = 0;
 let currentAnimation = null;
@@ -99,11 +95,12 @@ function updateLoadingAnimation() {
     if (loadingAnimationYPosition == null) {
         return;
     }
-    if (loadingAnimationYPosition >= getCanvasSize().height + ANIMATION_SPREAD) {
+    const { height } = getCanvasSize();
+    if (loadingAnimationYPosition >= height + getAnimationSpread(height)) {
         loadingAnimationYPosition = null;
         previousMousePosition = null;
     } else {
-        loadingAnimationYPosition += ANIMATION_SPEED;
+        loadingAnimationYPosition += getAnimationSpeed(height);
     }
 }
 
@@ -115,9 +112,10 @@ function drawLines(ctx, lines) {
     const { x, y } = mousePosition;
     const colors = getColors();
     let grad;
+    const { width, height } = getCanvasSize();
     if (isShowingLoadingAnimation()) {
         const scaledYPosition = toCanvasScale(loadingAnimationYPosition);
-        const scaledSpread = toCanvasScale(ANIMATION_SPREAD);
+        const scaledSpread = toCanvasScale(getAnimationSpread(height));
         grad = ctx.createLinearGradient(0, scaledYPosition, 0, scaledYPosition + scaledSpread);
         grad.addColorStop(0, colors.meshColor);
         grad.addColorStop(0.5, colors.meshHighlightColor);
@@ -125,15 +123,14 @@ function drawLines(ctx, lines) {
     } else {
         const scaledX = toCanvasScale(x);
         const scaledY = toCanvasScale(y);
-        const scaledInner = toCanvasScale(MOUSE_INNER_CIRCLE);
-        const scaledOuter = toCanvasScale(MOUSE_OUTER_CIRCLE);
+        const scaledInner = toCanvasScale(getMouseInnerCircle(height));
+        const scaledOuter = toCanvasScale(getMouseOuterCircle(height));
         grad = ctx.createRadialGradient(scaledX, scaledY, scaledInner, scaledX, scaledY, scaledOuter);
         grad.addColorStop(0, colors.meshHighlightColor);
         grad.addColorStop(1, colors.meshColor);
     }
     ctx.strokeStyle = grad;
     ctx.lineWidth = toCanvasScale(LINE_WIDTH);
-    const { width, height } = getCanvasSize();
     ctx.clearRect(0, 0, toCanvasScale(width), toCanvasScale(height));
     ctx.beginPath();
     lines.forEach(({ p0, p1 }) => drawLine(ctx, p0, p1));
@@ -159,8 +156,9 @@ function isValidUpdate() {
     if (loadingAnimationYPosition != null) {
         return true;
     }
+    const { width, height } = getCanvasSize();
     return (
-        mousePosition.y < getCanvasSize().height + MOUSE_OUTER_CIRCLE &&
+        mousePosition.y < height + getMouseOuterCircle(width) &&
         (previousMousePosition == null || mousePosition.x !== previousMousePosition.x || mousePosition.y !== previousMousePosition.y)
     );
 }
@@ -197,3 +195,4 @@ function startMesh() {
 }
 
 window.onmousemove = setMousePosition;
+window.onpointerdown = setMousePosition;

@@ -121,3 +121,35 @@ function getHeight(htmlElement) {
 function toCanvasScale(value) {
     return value * CANVAS_SCALE;
 }
+
+/**
+ * @param {number} height
+ * @returns {number}
+ */
+function getMouseInnerCircle(height) {
+    return height / 20;
+}
+
+/**
+ * @param {number} height
+ * @returns {number}
+ */
+function getMouseOuterCircle(height) {
+    return height / 7;
+}
+
+/**
+ * @param {number} height
+ * @returns {number}
+ */
+function getAnimationSpeed(height) {
+    return height / 35;
+}
+
+/**
+ * @param {number} height
+ * @returns {number}
+ */
+function getAnimationSpread(height) {
+    return height / 7;
+}

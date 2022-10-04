@@ -1,6 +1,6 @@
 :root {
     --background-color: #242424;
-    --background-color-translucent: rgba(36, 36, 36, 0.8);
+    --background-color-translucent: rgba(36, 36, 36, 0.4);
     --border-color: #bfbfbf;
     --primary-font-color: #fcfcfc;
     --mesh-color: #5d5d5d;
@@ -41,7 +41,7 @@ body {
     src: url('fonts/Alef/Alef-Regular.ttf');
 }
 
-.full-screen {
+.first-screen {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -437,5 +437,8 @@ a:active {
         bottom: 1rem;
         left: 1rem;
         right: 1rem;
+    }
+    .center-text-container .center-text {
+        padding: 0;
     }
 }
