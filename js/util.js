@@ -127,6 +127,7 @@ function toCanvasScale(value) {
  * @returns {number}
  */
 function getMouseInnerCircle(height) {
+    // TODO: Make dependent on screen area
     return height / 20;
 }
 
@@ -135,6 +136,7 @@ function getMouseInnerCircle(height) {
  * @returns {number}
  */
 function getMouseOuterCircle(height) {
+    // TODO: Make dependent on screen area
     return height / 7;
 }
 

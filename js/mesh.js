@@ -195,4 +195,4 @@ function startMesh() {
 }
 
 window.onmousemove = setMousePosition;
-window.onpointerdown = setMousePosition;
+window.onpointerdown = setMousePosition; // TODO: If mouse move not detected, make this do a glow up and down
