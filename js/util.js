@@ -2,6 +2,14 @@ const CANVAS_ID = 'meshcanvas01';
 const CANVAS_SCALE = 2;
 
 /**
+ * @param {MouseEvent} event
+ * @returns {{x: number, y: number}}
+ */
+function getMousePosition(event) {
+    return { x: event.pageX, y: event.pageY };
+}
+
+/**
  * @param {number} size
  * @param {string[]}
  */
@@ -120,4 +128,68 @@ function getHeight(htmlElement) {
  */
 function toCanvasScale(value) {
     return value * CANVAS_SCALE;
+}
+
+/**
+ * @param {number} width
+ * @param {number} height
+ * @returns {number}
+ */
+function getMouseInnerCircle(width, height) {
+    return (3.5 * width * height) / 100000 + 15;
+}
+
+/**
+ * @param {number} width
+ * @param {number} height
+ * @returns {number}
+ */
+function getMouseOuterCircle(width, height) {
+    return (width * height) / 10000 + 45;
+}
+
+/**
+ * @param {number} height
+ * @returns {number}
+ */
+function getAnimationSpeed(height) {
+    return height / 35;
+}
+
+/**
+ * @param {number} height
+ * @returns {number}
+ */
+function getAnimationSpread(height) {
+    return height / 7;
+}
+
+/**
+ * Get rgb components from hex string
+ * @param {string} hex
+ * @returns {{ r: number, g: number, b: number }}
+ */
+function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+
+    return { r, g, b };
+}
+
+/**
+ * Applies color1 to color0 with a certain intensity
+ * @param {string} color0
+ * @param {string} color1
+ * @param {number} intensity
+ * @returns
+ */
+function getGradient(color0, color1, intensity) {
+    const { r: r0, g: g0, b: b0 } = hexToRgb(color0);
+    const { r: r1, g: g1, b: b1 } = hexToRgb(color1);
+
+    const applyIntensity = (a0, a1) => a0 + (a1 - a0) * intensity;
+
+    const { r, g, b } = { r: applyIntensity(r0, r1), g: applyIntensity(g0, g1), b: applyIntensity(b0, b1) };
+    return `rgb(${r},${g},${b})`;
 }
