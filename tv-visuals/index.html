@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="TV Visuals — BPM-matched, music-reactive visuals for your Apple TV."
+    />
+    <title>TV Visuals</title>
+    <style>
+      @font-face {
+        font-family: Ubuntu-Light;
+        src: url("../fonts/Ubuntu/Ubuntu-Light.ttf");
+      }
+      @font-face {
+        font-family: Ubuntu;
+        src: url("../fonts/Ubuntu/Ubuntu-Regular.ttf");
+      }
+      @font-face {
+        font-family: Ubuntu-Medium;
+        src: url("../fonts/Ubuntu/Ubuntu-Medium.ttf");
+      }
+
+      :root {
+        --bg: #202024;
+        --bg-deep: #161618;
+        --text: #fcfcfc;
+        --muted: #a6a6ad;
+        --card: rgba(255, 255, 255, 0.055);
+        --card-border: rgba(255, 255, 255, 0.12);
+        --cyan: #34d3ee;
+        --purple: #8b5cf6;
+        --magenta: #ec4899;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden; /* single, non-scrollable screen */
+      }
+
+      body {
+        font-family: Ubuntu, system-ui, sans-serif;
+        color: var(--text);
+        background: radial-gradient(
+            circle at 50% 38%,
+            #2a2a30 0%,
+            var(--bg) 45%,
+            var(--bg-deep) 100%
+          );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4vh 5vw;
+      }
+
+      /* --- Tunnel rings echoing the app's visuals --- */
+      .rings {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        z-index: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .rings span {
+        position: absolute;
+        width: 40vmin;
+        height: 40vmin;
+        border-radius: 50%;
+        border: 1.5px solid;
+        opacity: 0;
+        animation: pulse 7s linear infinite;
+      }
+      .rings span:nth-child(1) {
+        border-color: var(--cyan);
+        animation-delay: 0s;
+      }
+      .rings span:nth-child(2) {
+        border-color: var(--purple);
+        animation-delay: 1.4s;
+      }
+      .rings span:nth-child(3) {
+        border-color: var(--magenta);
+        animation-delay: 2.8s;
+      }
+      .rings span:nth-child(4) {
+        border-color: var(--purple);
+        animation-delay: 4.2s;
+      }
+      .rings span:nth-child(5) {
+        border-color: var(--cyan);
+        animation-delay: 5.6s;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(0.05);
+          opacity: 0;
+        }
+        12% {
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(3.4);
+          opacity: 0;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .rings span {
+          animation: none;
+          opacity: 0.12;
+        }
+      }
+
+      /* --- Frosted tvOS-style card --- */
+      .card {
+        position: relative;
+        z-index: 1;
+        width: min(760px, 100%);
+        max-height: 92vh;
+        padding: clamp(1.6rem, 4vh, 3.2rem) clamp(1.6rem, 5vw, 3.4rem);
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: 30px;
+        backdrop-filter: blur(28px) saturate(140%);
+        -webkit-backdrop-filter: blur(28px) saturate(140%);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        text-align: center;
+      }
+
+      .badge {
+        display: inline-block;
+        font-family: Ubuntu-Medium, sans-serif;
+        font-size: 0.8rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding: 0.35rem 0.9rem;
+        border: 1px solid var(--card-border);
+        border-radius: 999px;
+        margin-bottom: 1.4rem;
+      }
+
+      h1 {
+        font-family: Ubuntu-Light, sans-serif;
+        font-weight: 400;
+        font-size: clamp(2.6rem, 7vw, 4rem);
+        margin: 0 0 0.4rem;
+        background: linear-gradient(
+          100deg,
+          var(--cyan),
+          var(--purple) 55%,
+          var(--magenta)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .tagline {
+        font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+        color: var(--text);
+        margin: 0 0 1rem;
+      }
+
+      .desc {
+        font-size: clamp(0.98rem, 2vw, 1.12rem);
+        line-height: 1.6;
+        color: var(--muted);
+        max-width: 46ch;
+        margin: 0 auto 1.8rem;
+      }
+
+      .features {
+        list-style: none;
+        margin: 0 0 2rem;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        justify-content: center;
+      }
+      .features li {
+        font-size: 0.98rem;
+        color: var(--text);
+        padding: 0.6rem 1.05rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        transition: transform 0.18s ease, background 0.18s ease;
+      }
+      .features li:hover {
+        transform: translateY(-2px) scale(1.03);
+        background: rgba(255, 255, 255, 0.09);
+      }
+
+      /* --- Thanks / attribution --- */
+      .thanks {
+        border-top: 1px solid var(--card-border);
+        padding-top: 1.5rem;
+      }
+      .thanks p {
+        font-size: 0.9rem;
+        letter-spacing: 0.02em;
+        color: var(--muted);
+        margin: 0 0 1rem;
+      }
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        justify-content: center;
+      }
+      .service {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.1rem;
+        text-decoration: none;
+        padding: 0.7rem 1.3rem;
+        border-radius: 16px;
+        border: 1px solid var(--card-border);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        transition: transform 0.18s ease, box-shadow 0.18s ease,
+          border-color 0.18s ease, background 0.18s ease;
+      }
+      .service .role {
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .service .name {
+        font-family: Ubuntu-Medium, sans-serif;
+        font-size: 1.12rem;
+      }
+      /* tvOS-style focus: lift, brighten, and glow */
+      .service:hover,
+      .service:focus-visible {
+        transform: translateY(-3px) scale(1.05);
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(255, 255, 255, 0.12);
+      }
+      .service.lastfm .name {
+        color: #f76d6d;
+      }
+      .service.getsongbpm .name {
+        color: var(--cyan);
+      }
+
+      /* Prevent long text from forcing horizontal overflow on narrow screens */
+      h1,
+      .tagline,
+      .desc,
+      .features li,
+      .service {
+        overflow-wrap: break-word;
+      }
+      .features,
+      .links {
+        max-width: 100%;
+      }
+      .features li,
+      .service {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      @media (max-width: 520px) {
+        body {
+          padding: 3vh 4vw;
+        }
+        .card {
+          padding: 1.5rem 1.2rem;
+          border-radius: 24px;
+        }
+        .desc {
+          margin-bottom: 1.3rem;
+        }
+        .features {
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+        }
+        .features li {
+          width: 100%;
+          text-align: center;
+        }
+        .links {
+          flex-direction: column;
+        }
+        .service {
+          width: 100%;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rings" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <main class="card">
+      <span class="badge">Apple&nbsp;TV</span>
+      <h1>TV Visuals</h1>
+      <p class="tagline">BPM-matched visuals for your living room.</p>
+      <p class="desc">
+        TV Visuals turns your Apple&nbsp;TV into a music-reactive light show —
+        flowing shapes and colour that move and pulse in time with the tempo of
+        whatever you're playing. A living backdrop for parties, focus, or just
+        vibing.
+      </p>
+
+      <ul class="features">
+        <li>Beat-matched motion synced to the music's BPM</li>
+        <li>Automatic mode that follows what you're playing</li>
+        <li>Moods &amp; styles, from calm to intense</li>
+        <li>Always-on ambient screensaver</li>
+      </ul>
+
+      <footer class="thanks">
+        <p>Made possible by</p>
+        <div class="links">
+          <a
+            class="service lastfm"
+            href="https://www.last.fm"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="role">Now-playing detection</span>
+            <span class="name">Last.fm</span>
+          </a>
+          <a
+            class="service getsongbpm"
+            href="https://getsongbpm.com"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="role">BPM data</span>
+            <span class="name">GetSongBPM</span>
+          </a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
